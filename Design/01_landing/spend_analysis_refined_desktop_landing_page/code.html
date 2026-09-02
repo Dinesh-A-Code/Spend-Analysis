@@ -1,0 +1,536 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Spend Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-secondary-fixed": "#1a1b21",
+                "on-tertiary": "#2e3038",
+                "status-error": "#EF4444",
+                "surface-dim": "#121318",
+                "on-primary-fixed-variant": "#46464d",
+                "status-warning": "#F59E0B",
+                "inverse-primary": "#5d5e65",
+                "secondary-fixed-dim": "#c6c6ce",
+                "on-primary": "#2f3036",
+                "primary-container": "#1c1d23",
+                "on-tertiary-fixed-variant": "#45464f",
+                "accent-insight-purple": "#8B5CF6",
+                "text-secondary": "#A1A1AA",
+                "border-subtle": "rgba(255, 255, 255, 0.06)",
+                "surface-bright": "#38393e",
+                "secondary-fixed": "#e3e1ea",
+                "text-metadata": "#71717A",
+                "primary-fixed-dim": "#c7c6ce",
+                "surface-container": "#1e1f24",
+                "on-surface-variant": "#c7c6cb",
+                "primary": "#c7c6ce",
+                "background": "#121318",
+                "on-secondary-container": "#b5b4bc",
+                "on-secondary-fixed-variant": "#46464d",
+                "inverse-surface": "#e3e1e9",
+                "tertiary": "#c5c6d0",
+                "surface-container-high": "#292a2f",
+                "error": "#ffb4ab",
+                "surface": "#121318",
+                "on-primary-container": "#85858c",
+                "surface-tint": "#c7c6ce",
+                "text-primary": "#F5F5F5",
+                "secondary": "#c6c6ce",
+                "on-primary-fixed": "#1a1b21",
+                "on-tertiary-fixed": "#191b23",
+                "on-surface": "#e3e1e9",
+                "secondary-container": "#46464d",
+                "tertiary-fixed": "#e1e2ec",
+                "surface-container-lowest": "#0d0e13",
+                "on-error-container": "#ffdad6",
+                "surface-container-highest": "#34343a",
+                "primary-fixed": "#e3e1ea",
+                "on-secondary": "#2f3036",
+                "on-background": "#e3e1e9",
+                "nav-surface": "#F9F9F9",
+                "inverse-on-surface": "#2f3035",
+                "tertiary-fixed-dim": "#c5c6d0",
+                "tertiary-container": "#1b1d25",
+                "status-success": "#10B981",
+                "error-container": "#93000a",
+                "surface-variant": "#34343a",
+                "on-tertiary-container": "#83858e",
+                "on-error": "#690005",
+                "surface-container-low": "#1a1b20",
+                "accent-insight-blue": "#3B82F6",
+                "outline-variant": "#46464b",
+                "outline": "#919095"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "base": "8px",
+                "margin-mobile": "20px",
+                "container-padding": "16px",
+                "margin-desktop": "40px",
+                "gutter": "16px"
+        },
+        "fontFamily": {
+                "label-bold": [
+                        "Inter"
+                ],
+                "metadata": [
+                        "Inter"
+                ],
+                "display-currency-mobile": [
+                        "Inter"
+                ],
+                "display-currency": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "body-sm": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "label-bold": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "metadata": [
+                        "11px",
+                        {
+                                "lineHeight": "14px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "display-currency-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-currency": [
+                        "40px",
+                        {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            background-color: #121318; /* surface-dim */
+            color: #F5F5F5; /* text-primary */
+        }
+        .bg-card {
+            background-color: #24252B; /* Darker charcoal for cards */
+        }
+        .text-accent-blue {
+            color: #3B82F6;
+        }
+        .text-accent-purple {
+            color: #8B5CF6;
+        }
+        .text-accent-green {
+            color: #10B981;
+        }
+        .glass-panel {
+            background: rgba(36, 37, 43, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .glass-panel-light {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-lg text-body-lg">
+<!-- TopNavBar -->
+<header class="w-full sticky top-0 z-50 bg-nav-surface shadow-sm border-b border-subtle">
+<div class="flex justify-between items-center h-20 px-margin-desktop max-w-[1200px] mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#121318] font-variation-settings: 'FILL' 1; text-2xl">monitoring</span>
+<span class="font-headline-lg text-headline-lg font-bold text-[#121318]">Spend Analysis</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-[#46464d] hover:text-[#121318] transition-all duration-200 font-label-bold text-label-bold uppercase tracking-wider" href="#features">Features</a>
+<a class="text-[#46464d] hover:text-[#121318] transition-all duration-200 font-label-bold text-label-bold uppercase tracking-wider" href="#how-it-works">How it Works</a>
+<a class="text-[#46464d] hover:text-[#121318] transition-all duration-200 font-label-bold text-label-bold uppercase tracking-wider" href="#security">Security</a>
+<a class="text-[#46464d] hover:text-[#121318] transition-all duration-200 font-label-bold text-label-bold uppercase tracking-wider" href="#">Login</a>
+</nav>
+<button class="bg-primary text-[#121318] px-6 py-2 rounded-full font-label-bold text-label-bold uppercase tracking-wider hover:opacity-90 transition-opacity hidden md:block shadow-sm">
+                Get Started
+            </button>
+<button class="md:hidden text-[#46464d] p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative pt-32 pb-24 overflow-hidden bg-background">
+<!-- Decorative background elements -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-accent-insight-blue/10 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="absolute bottom-0 right-0 w-[600px] h-[400px] bg-accent-insight-purple/10 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="max-w-[1200px] mx-auto px-margin-desktop relative z-10">
+<div class="flex flex-col md:flex-row gap-16 items-center">
+<!-- Hero Content -->
+<div class="flex-1 space-y-8 text-center md:text-left">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-subtle bg-primary-container text-metadata font-metadata text-text-secondary">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+                            Secure &amp; Private Data Analysis
+                        </div>
+<h1 class="text-5xl md:text-6xl font-display-currency text-text-primary leading-tight">
+                            Understand Your Money.<br>
+<span class="text-primary">Spend Smarter.</span>
+</h1>
+<p class="text-lg text-text-secondary max-w-xl mx-auto md:mx-0 font-body-lg">
+                            Securely analyze your spending, track UPI payments, manage budgets, and get intelligent insights from your financial data.
+                        </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-label-bold text-label-bold uppercase tracking-wider hover:opacity-90 transition-opacity">
+                                Get Started
+                            </button>
+<button class="border border-outline-variant text-text-primary px-8 py-3 rounded-full font-label-bold text-label-bold uppercase tracking-wider hover:bg-primary-container transition-colors">
+                                Login
+                            </button>
+</div>
+</div>
+<!-- Hero Visual (Mockup) -->
+<div class="flex-1 w-full relative perspective-[1000px]">
+<div class="relative w-full aspect-[4/3] rounded-xl border border-subtle bg-card shadow-2xl overflow-hidden transform rotate-y-[-5deg] rotate-x-[2deg]">
+<!-- Dashboard Header -->
+<div class="h-12 border-b border-subtle flex items-center px-4 justify-between bg-surface-container-highest/30">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+<div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+<div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+</div>
+<div class="text-metadata text-text-secondary font-metadata">Dashboard Overview</div>
+</div>
+<!-- Dashboard Content Layout -->
+<div class="p-6 grid grid-cols-12 gap-4 h-full">
+<!-- Main Balance Area -->
+<div class="col-span-12 md:col-span-8 space-y-4">
+<div class="glass-panel-light p-4 rounded-lg flex flex-col justify-between h-32">
+<div class="text-text-secondary text-sm">Total Spending (This Month)</div>
+<div class="font-display-currency-mobile text-3xl text-text-primary">$4,250.00</div>
+<div class="flex items-center gap-1 text-status-success text-xs">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+                                            12% vs last month
+                                        </div>
+</div>
+<!-- UPI Sources Mini-list -->
+<div class="glass-panel-light p-4 rounded-lg h-32 flex flex-col gap-2">
+<div class="text-text-secondary text-xs uppercase tracking-wider mb-2">Recent UPI Sources</div>
+<div class="flex justify-between items-center text-sm">
+<div class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-[#1A73E8]"></span> Google Pay</div>
+<div class="text-text-primary">$1,120</div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<div class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-[#5E2F9F]"></span> PhonePe</div>
+<div class="text-text-primary">$850</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar -->
+<div class="col-span-12 md:col-span-4 space-y-4 flex flex-col">
+<!-- Donut Chart Placeholder -->
+<div class="glass-panel-light p-4 rounded-lg flex-1 flex flex-col items-center justify-center relative">
+<div class="w-24 h-24 rounded-full border-[6px] border-surface-container-highest relative">
+<div class="absolute inset-[-6px] rounded-full border-[6px] border-accent-insight-blue border-r-transparent border-b-transparent transform rotate-45"></div>
+<div class="absolute inset-[-6px] rounded-full border-[6px] border-accent-insight-purple border-t-transparent border-l-transparent border-r-transparent"></div>
+</div>
+<div class="absolute text-center">
+<div class="text-xs text-text-secondary">Top</div>
+<div class="font-bold text-sm">Food</div>
+</div>
+</div>
+<!-- AI Insight Card -->
+<div class="glass-panel p-3 rounded-lg border-l-2 border-l-accent-insight-purple bg-surface-container-highest/50">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-accent-insight-purple text-sm">auto_awesome</span>
+<p class="text-xs text-text-secondary">You spent 20% more on dining this weekend compared to average.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Abstract overlay highlight -->
+<div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent rounded-xl pointer-events-none"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section (Bento Grid) -->
+<section class="py-24 bg-primary-container" id="features">
+<div class="max-w-[1200px] mx-auto px-margin-desktop">
+<div class="mb-16 text-center md:text-left">
+<h2 class="font-headline-lg text-3xl font-bold text-text-primary mb-4">Intelligent Financial Analysis</h2>
+<p class="text-text-secondary max-w-2xl text-lg">Powerful tools to break down your spending habits without compromising privacy.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[minmax(200px,auto)]">
+<!-- Feature 1: Wide -->
+<div class="md:col-span-8 bg-card rounded-xl border border-subtle p-8 flex flex-col md:flex-row gap-8 items-center overflow-hidden relative group hover:border-outline-variant transition-colors">
+<div class="flex-1 z-10">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-accent-insight-blue">lock</span>
+</div>
+<h3 class="font-headline-md text-xl font-semibold text-text-primary mb-2">Secure Financial Data</h3>
+<p class="text-text-secondary font-body-sm text-sm leading-relaxed">Connect financial accounts through consent-based access. Your credentials are never stored, ensuring complete privacy.</p>
+</div>
+<div class="flex-1 w-full h-full min-h-[150px] relative z-0">
+<!-- Abstract Secure Vault Graphic -->
+<div class="absolute inset-0 bg-surface-container-highest/50 rounded-lg border border-subtle overflow-hidden">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border border-accent-insight-blue/30 animate-[spin_10s_linear_infinite]"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full border border-accent-insight-blue/50"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 material-symbols-outlined text-accent-insight-blue opacity-50 text-4xl">shield</div>
+</div>
+</div>
+</div>
+<!-- Feature 2: Square -->
+<div class="md:col-span-4 bg-card rounded-xl border border-subtle p-8 flex flex-col justify-between group hover:border-outline-variant transition-colors relative overflow-hidden">
+<div class="z-10 relative">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-accent-insight-purple">payments</span>
+</div>
+<h3 class="font-headline-md text-xl font-semibold text-text-primary mb-2">UPI Spending Analysis</h3>
+<p class="text-text-secondary font-body-sm text-sm leading-relaxed">Understand where your money goes across Google Pay, PhonePe, Paytm and other sources.</p>
+</div>
+<!-- Decorative gradient corner -->
+<div class="absolute bottom-0 right-0 w-32 h-32 bg-accent-insight-purple/10 blur-2xl rounded-full"></div>
+</div>
+<!-- Feature 3: Square -->
+<div class="md:col-span-4 bg-card rounded-xl border border-subtle p-8 flex flex-col justify-between group hover:border-outline-variant transition-colors">
+<div>
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-status-success">monitoring</span>
+</div>
+<h3 class="font-headline-md text-xl font-semibold text-text-primary mb-2">Smart Analytics</h3>
+<p class="text-text-secondary font-body-sm text-sm leading-relaxed">See spending trends, categories and payment patterns clearly with intuitive visual charts.</p>
+</div>
+</div>
+<!-- Feature 4: Wide -->
+<div class="md:col-span-8 bg-card rounded-xl border border-subtle p-8 flex flex-col justify-between relative overflow-hidden group hover:border-outline-variant transition-colors">
+<div class="z-10 relative max-w-lg">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<h3 class="font-headline-md text-xl font-semibold text-text-primary mb-2">AI-Powered Insights</h3>
+<p class="text-text-secondary font-body-sm text-sm leading-relaxed">Turn transaction data into understandable recommendations. Get notified about unusual spending or opportunities to save.</p>
+</div>
+<!-- Abstract AI lines graphic -->
+<div class="absolute right-0 top-0 bottom-0 w-1/2 pointer-events-none opacity-20">
+<div class="w-full h-full flex flex-col justify-around py-8 pl-8">
+<div class="h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent w-full"></div>
+<div class="h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent w-3/4"></div>
+<div class="h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent w-5/6"></div>
+<div class="h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent w-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works Section -->
+<section class="py-24 bg-background" id="how-it-works">
+<div class="max-w-[1200px] mx-auto px-margin-desktop">
+<div class="mb-16 text-center">
+<h2 class="font-headline-lg text-3xl font-bold text-text-primary mb-4">How It Works</h2>
+<p class="text-text-secondary text-lg">A simple flow to financial clarity.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+<!-- Connecting Line for Desktop -->
+<div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-[1px] bg-subtle border-t border-dashed border-outline-variant z-0"></div>
+<!-- Steps -->
+<div class="relative z-10 flex flex-col items-center text-center group">
+<div class="w-24 h-24 rounded-full bg-card border border-subtle flex flex-col items-center justify-center mb-6 shadow-lg group-hover:border-accent-insight-blue transition-colors">
+<span class="text-xs text-text-metadata font-label-bold uppercase tracking-widest mb-1">Step</span>
+<span class="text-2xl font-display-currency text-text-primary">01</span>
+</div>
+<h4 class="font-headline-md text-lg text-text-primary mb-2">Connect</h4>
+<p class="text-sm text-text-secondary font-body-sm">Link accounts securely.</p>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center group">
+<div class="w-24 h-24 rounded-full bg-card border border-subtle flex flex-col items-center justify-center mb-6 shadow-lg group-hover:border-accent-insight-purple transition-colors">
+<span class="text-xs text-text-metadata font-label-bold uppercase tracking-widest mb-1">Step</span>
+<span class="text-2xl font-display-currency text-text-primary">02</span>
+</div>
+<h4 class="font-headline-md text-lg text-text-primary mb-2">Analyze</h4>
+<p class="text-sm text-text-secondary font-body-sm">Data is processed locally.</p>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center group">
+<div class="w-24 h-24 rounded-full bg-card border border-subtle flex flex-col items-center justify-center mb-6 shadow-lg group-hover:border-status-success transition-colors">
+<span class="text-xs text-text-metadata font-label-bold uppercase tracking-widest mb-1">Step</span>
+<span class="text-2xl font-display-currency text-text-primary">03</span>
+</div>
+<h4 class="font-headline-md text-lg text-text-primary mb-2">Understand</h4>
+<p class="text-sm text-text-secondary font-body-sm">View clear spending trends.</p>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center group">
+<div class="w-24 h-24 rounded-full bg-card border border-subtle flex flex-col items-center justify-center mb-6 shadow-lg group-hover:border-primary transition-colors">
+<span class="text-xs text-text-metadata font-label-bold uppercase tracking-widest mb-1">Step</span>
+<span class="text-2xl font-display-currency text-text-primary">04</span>
+</div>
+<h4 class="font-headline-md text-lg text-text-primary mb-2">Improve</h4>
+<p class="text-sm text-text-secondary font-body-sm">Act on smart insights.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Security Section (Asymmetric Layout) -->
+<section class="py-24 bg-primary-container border-y border-subtle overflow-hidden" id="security">
+<div class="max-w-[1200px] mx-auto px-margin-desktop">
+<div class="flex flex-col md:flex-row gap-16 items-center">
+<div class="flex-1 order-2 md:order-1 relative">
+<!-- Abstract Security Visual -->
+<div class="w-full aspect-square max-w-md mx-auto relative">
+<div class="absolute inset-0 bg-surface-container-highest rounded-full blur-[80px] opacity-50"></div>
+<div class="relative z-10 w-full h-full bg-card rounded-2xl border border-subtle p-8 flex flex-col justify-center items-center shadow-2xl">
+<div class="w-32 h-32 rounded-full border-[8px] border-primary-container flex items-center justify-center mb-8 relative">
+<div class="absolute inset-[-8px] rounded-full border-[8px] border-status-success border-t-transparent animate-spin"></div>
+<span class="material-symbols-outlined text-5xl text-status-success">verified_user</span>
+</div>
+<div class="w-full space-y-3">
+<div class="h-2 w-3/4 bg-primary-container rounded-full mx-auto"></div>
+<div class="h-2 w-1/2 bg-primary-container rounded-full mx-auto"></div>
+<div class="h-2 w-5/6 bg-primary-container rounded-full mx-auto"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex-1 order-1 md:order-2 space-y-8">
+<div>
+<span class="text-status-success font-label-bold text-label-bold uppercase tracking-wider mb-2 block">Bank-Grade Security</span>
+<h2 class="font-headline-lg text-3xl md:text-4xl font-bold text-text-primary mb-4">Your financial data stays under your control.</h2>
+<p class="text-text-secondary text-lg">We built Spend Analysis with privacy as the core foundation, not an afterthought.</p>
+</div>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<div class="mt-1 w-6 h-6 rounded-full bg-status-success/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-status-success text-sm">check</span>
+</div>
+<div>
+<h4 class="font-headline-md text-base text-text-primary">Consent-based access</h4>
+<p class="text-sm text-text-secondary">You explicitly grant access to specific data.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="mt-1 w-6 h-6 rounded-full bg-status-success/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-status-success text-sm">check</span>
+</div>
+<div>
+<h4 class="font-headline-md text-base text-text-primary">No bank passwords stored</h4>
+<p class="text-sm text-text-secondary">We use secure tokens; your credentials never touch our servers.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="mt-1 w-6 h-6 rounded-full bg-status-success/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-status-success text-sm">check</span>
+</div>
+<div>
+<h4 class="font-headline-md text-base text-text-primary">Clear revocation</h4>
+<p class="text-sm text-text-secondary">Disconnect your accounts and delete your data at any time with one click.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-32 relative text-center bg-background">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface-container-highest/20 pointer-events-none"></div>
+<div class="max-w-3xl mx-auto px-margin-desktop relative z-10">
+<h2 class="font-display-currency text-4xl md:text-5xl text-text-primary mb-8">Ready to understand your spending?</h2>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="bg-primary text-on-primary px-10 py-4 rounded-full font-label-bold text-label-bold uppercase tracking-wider hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(199,198,206,0.2)]">
+                        Get Started
+                    </button>
+<button class="border border-outline-variant text-text-primary px-10 py-4 rounded-full font-label-bold text-label-bold uppercase tracking-wider hover:bg-primary-container transition-colors">
+                        Login
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-subtle bg-surface-container-lowest dark:bg-surface-container-lowest">
+<div class="flex flex-col md:flex-row justify-between items-center gap-base px-margin-desktop max-w-[1200px] mx-auto">
+<div class="flex flex-col gap-2 items-center md:items-start mb-6 md:mb-0">
+<div class="font-label-bold text-label-bold text-text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">monitoring</span>
+                    Spend Analysis
+                </div>
+<div class="font-metadata text-metadata text-text-secondary">
+                    © 2024 SpendSense. Secure financial analysis for the modern era.
+                </div>
+</div>
+<nav class="flex flex-wrap justify-center gap-6 font-metadata text-metadata">
+<a class="text-text-secondary hover:text-text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-text-secondary hover:text-text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-text-secondary hover:text-text-primary transition-colors" href="#">Cookie Settings</a>
+<a class="text-text-secondary hover:text-text-primary transition-colors" href="#">Help Center</a>
+</nav>
+</div>
+</footer>
+</body></html>

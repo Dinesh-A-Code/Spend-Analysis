@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spend Analysis - Settings</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected from design system -->
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-error-container": "#ffdad6",
+                "on-secondary": "#2f3036",
+                "surface-container-high": "#292a2f",
+                "surface-container-low": "#1a1b20",
+                "background": "#121318",
+                "secondary-fixed": "#e3e1ea",
+                "accent-insight-blue": "#3B82F6",
+                "on-tertiary": "#2e3038",
+                "secondary-fixed-dim": "#c6c6ce",
+                "nav-surface": "#F9F9F9",
+                "surface-dim": "#121318",
+                "on-secondary-fixed-variant": "#46464d",
+                "on-primary-container": "#85858c",
+                "text-primary": "#F5F5F5",
+                "secondary": "#c6c6ce",
+                "inverse-primary": "#5d5e65",
+                "on-surface": "#e3e1e9",
+                "tertiary-container": "#1b1d25",
+                "on-primary-fixed-variant": "#46464d",
+                "surface-container-lowest": "#0d0e13",
+                "primary-fixed-dim": "#c7c6ce",
+                "on-error": "#690005",
+                "on-tertiary-fixed-variant": "#45464f",
+                "inverse-on-surface": "#2f3035",
+                "secondary-container": "#46464d",
+                "accent-insight-purple": "#8B5CF6",
+                "on-primary": "#2f3036",
+                "status-success": "#10B981",
+                "on-primary-fixed": "#1a1b21",
+                "text-secondary": "#A1A1AA",
+                "error-container": "#93000a",
+                "on-tertiary-fixed": "#191b23",
+                "on-surface-variant": "#c7c6cb",
+                "primary-fixed": "#e3e1ea",
+                "error": "#ffb4ab",
+                "text-metadata": "#71717A",
+                "on-background": "#e3e1e9",
+                "status-error": "#EF4444",
+                "tertiary": "#c5c6d0",
+                "inverse-surface": "#e3e1e9",
+                "surface-bright": "#38393e",
+                "border-subtle": "rgba(255, 255, 255, 0.06)",
+                "outline": "#919095",
+                "primary-container": "#1c1d23",
+                "on-secondary-container": "#b5b4bc",
+                "on-secondary-fixed": "#1a1b21",
+                "tertiary-fixed": "#e1e2ec",
+                "surface-variant": "#34343a",
+                "primary": "#c7c6ce",
+                "status-warning": "#F59E0B",
+                "outline-variant": "#46464b",
+                "tertiary-fixed-dim": "#c5c6d0",
+                "on-tertiary-container": "#83858e",
+                "surface-container": "#1e1f24",
+                "surface-container-highest": "#34343a",
+                "surface": "#121318",
+                "surface-tint": "#c7c6ce"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-padding": "16px",
+                "base": "8px",
+                "margin-mobile": "20px",
+                "margin-desktop": "40px",
+                "gutter": "16px"
+        },
+        "fontFamily": {
+                "body-sm": [
+                        "Inter"
+                ],
+                "label-bold": [
+                        "Inter"
+                ],
+                "metadata": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "display-currency": [
+                        "Inter"
+                ],
+                "display-currency-mobile": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-bold": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "metadata": [
+                        "11px",
+                        {
+                                "lineHeight": "14px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-md": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-currency": [
+                        "40px",
+                        {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-currency-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Hide scrollbar for cleaner UI */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Smooth expand/collapse transition for consent details */
+        .consent-details-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, margin-top 0.3s ease-out;
+        }
+        .consent-details-content.expanded {
+            max-height: 150px; /* Arbitrary large enough height */
+            opacity: 1;
+            margin-top: 1rem;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-sm min-h-screen pb-[160px] antialiased">
+<!-- TopAppBar (From Shared Components) -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border-subtle flat no shadows flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16">
+<button class="hover:opacity-80 transition-opacity scale-95 active:scale-90 transition-transform focus:outline-none">
+<img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-border-subtle bg-surface-container-low" data-alt="A macro photography shot of a pristine, modern user avatar placeholder, featuring a subtle geometric silhouette on a deep charcoal background with soft, diffused top lighting to emphasize a premium, secure digital identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3Z1koPtsHc4BFpmJ_cJuS3oW56HKXbmpJXMG0a3A-unuwHh6Ae-4JzMhO1-uSHldw9zAyN8a_q1DtoIHHwQ2zzklVEDfeSccLfgq3cCaBNp7ZhQYo5G1jyHcYokS0-Ww4sBZiPd-i96zk4M6SxSgamngWcgfvGr_3QH_Gcm_u8lWplliPG7mDMrkBJUOnzUr8kP00ZdajGqXICa8AOuqe-whZL0JoPMqcHnmcN0jMkgRcJrOIqabv"/>
+</button>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface dark:text-on-surface tracking-tight">Spend Analysis</h1>
+<button class="text-primary dark:text-primary hover:opacity-80 transition-opacity scale-95 active:scale-90 transition-transform focus:outline-none">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="pt-24 px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto space-y-6">
+<!-- HEADER SECTION -->
+<section class="space-y-4">
+<div>
+<h2 class="font-display-currency-mobile text-display-currency-mobile text-on-surface mb-1">Settings</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manage your account, connections and data</p>
+</div>
+<!-- Profile Card -->
+<div class="bg-surface-container-low border border-border-subtle rounded-xl p-4 flex items-center space-x-4">
+<img alt="Amit Sharma" class="w-14 h-14 rounded-full object-cover border border-border-subtle" data-alt="A polished, professional headshot of a modern Indian professional man in his early 30s, Amit Sharma. He has neat dark hair, a subtle smile, and is wearing a crisp dark grey collared shirt. The lighting is soft and flattering studio light against a minimalist dark grey background, creating a trustworthy and premium feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYnPwy5qpyBVGG_0O8GxGqRPAVHmzBx8i-eEPixmQa6kfBVFKhLVypy72s52LjIYHIn8W0_3CPebWqP3QBjrs_sFsybYk-04hoB2l1MD87gWdNk0aI9ROeKvY2VTEgQdd--nfFST2BhACKzDvRJFUEDDU8hcJbIS9SL1kFjb3FX2xejaQQpa1cq0v5RlDp9oPjYt5Vv9VvAfgv-JgqUF6oBXr-wuugbO8X8fRtBMxZi_ZPKqSl0MoO"/>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Amit Sharma</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Personal Account</p>
+</div>
+</div>
+</section>
+<!-- FINANCIAL CONNECTIONS SECTION -->
+<section class="space-y-3">
+<h3 class="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider pl-1">Financial Connections</h3>
+<!-- Bank Card -->
+<div class="bg-surface-container-low border border-border-subtle rounded-xl p-5 relative overflow-hidden group">
+<!-- Subtle background accent for bank identity -->
+<div class="absolute top-0 left-0 w-1 h-full bg-accent-insight-blue opacity-80"></div>
+<div class="flex justify-between items-start mb-4 pl-2">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface">HDFC Bank</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Savings Account • XXXX-XXXX-9876</p>
+</div>
+<div class="p-2 bg-surface rounded-lg border border-border-subtle">
+<span class="material-symbols-outlined text-accent-insight-blue" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+</div>
+<div class="flex items-center space-x-2 pl-2 mb-4">
+<div class="w-2 h-2 rounded-full bg-status-success shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+<span class="font-body-sm text-body-sm text-on-surface">Connected</span>
+<span class="text-border-subtle mx-1">•</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Consent: Active</span>
+</div>
+<!-- Expandable Consent Action -->
+<div class="pl-2 border-t border-border-subtle pt-3 mt-2">
+<button class="flex items-center text-primary hover:text-on-surface transition-colors font-body-sm text-body-sm focus:outline-none" id="toggle-consent-btn">
+                        View consent details
+                        <span class="material-symbols-outlined ml-1 text-[18px] transition-transform duration-300" id="consent-chevron">arrow_forward</span>
+</button>
+<!-- Hidden details (toggled via JS) -->
+<div class="consent-details-content bg-surface border border-border-subtle rounded-lg p-3" id="consent-details">
+<div class="flex justify-between items-center mb-3">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Valid until</span>
+<span class="font-body-lg text-body-lg text-on-surface font-medium">01 Sep 2027</span>
+</div>
+<button class="w-full py-2 bg-status-warning/10 border border-status-warning/30 text-status-warning font-label-bold text-label-bold rounded-lg hover:bg-status-warning/20 transition-colors focus:outline-none">
+                            REVOKE CONSENT
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- DATA & PRIVACY SECTION -->
+<section class="space-y-3">
+<h3 class="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider pl-1">Data &amp; Privacy</h3>
+<div class="bg-surface-container-low border border-border-subtle rounded-xl overflow-hidden">
+<a class="flex items-center justify-between p-4 border-b border-border-subtle hover:bg-surface transition-colors" href="#">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-on-surface-variant">database</span>
+<span class="font-body-lg text-body-lg text-on-surface">Financial data</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-4 border-b border-border-subtle hover:bg-surface transition-colors" href="#">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-on-surface-variant">link</span>
+<span class="font-body-lg text-body-lg text-on-surface">Connected accounts</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-4 hover:bg-surface transition-colors" href="#">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-on-surface-variant">history</span>
+<span class="font-body-lg text-body-lg text-on-surface">Consent history</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</a>
+</div>
+</section>
+<!-- INFO CARD SECTION -->
+<section>
+<div class="bg-surface-container-highest border border-border-subtle rounded-xl p-4 flex items-start space-x-3">
+<span class="material-symbols-outlined text-primary mt-0.5">info</span>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">How your data is used</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Your transaction data is securely analyzed locally to generate spending insights, categorize expenses, and detect recurring patterns. We do not sell your personal financial data to third parties.
+                    </p>
+</div>
+</div>
+</section>
+<!-- SECURITY SECTION -->
+<section class="space-y-3">
+<h3 class="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider pl-1">Security</h3>
+<div class="bg-surface-container-low border border-border-subtle rounded-xl overflow-hidden">
+<a class="flex items-center justify-between p-4 border-b border-border-subtle hover:bg-surface transition-colors" href="#">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-on-surface-variant">lock</span>
+<span class="font-body-lg text-body-lg text-on-surface">Password</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-4 border-b border-border-subtle hover:bg-surface transition-colors" href="#">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-on-surface-variant">devices</span>
+<span class="font-body-lg text-body-lg text-on-surface">Active sessions</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</a>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface transition-colors focus:outline-none">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-on-surface-variant">logout</span>
+<span class="font-body-lg text-body-lg text-on-surface">Log out</span>
+</div>
+</button>
+</div>
+</section>
+<!-- DELETE FINANCIAL DATA SECTION (High Risk) -->
+<section class="pt-4 border-t border-border-subtle mt-8 space-y-4">
+<div>
+<h4 class="font-headline-md text-headline-md text-status-error mb-1">Danger Zone</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Deleting your financial data will permanently remove all categorized spend history, insights, and budgets from the Spend Analysis app. 
+                    <strong class="text-on-surface font-medium">This will not delete your actual bank records or UPI history.</strong>
+</p>
+</div>
+<button class="px-5 py-2.5 bg-transparent border border-status-error text-status-error font-label-bold text-label-bold rounded-lg hover:bg-status-error/10 transition-colors focus:outline-none flex items-center space-x-2">
+<span class="material-symbols-outlined text-[18px]">delete_forever</span>
+<span>DELETE FINANCIAL DATA</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar (From Shared Components) -->
+<!-- Mobile Only navigation capsule -->
+<nav class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md rounded-full bg-nav-surface shadow-md ambient-shadow z-50 flex justify-around items-center p-2">
+<a class="flex flex-col items-center justify-center text-text-secondary px-4 py-2 hover:text-on-surface transition-colors scale-105 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-bold text-label-bold mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary px-4 py-2 hover:text-on-surface transition-colors scale-105 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-bold text-label-bold mt-1">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary px-4 py-2 hover:text-on-surface transition-colors scale-105 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-bold text-label-bold mt-1">Transactions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary px-4 py-2 hover:text-on-surface transition-colors scale-105 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-bold text-label-bold mt-1">Budget</span>
+</a>
+<!-- Active Tab: Settings -->
+<a class="flex flex-col items-center justify-center bg-surface-container-highest text-on-surface rounded-full px-4 py-2 hover:text-on-surface transition-colors scale-105 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-bold text-label-bold mt-1">Settings</span>
+</a>
+</nav>
+<!-- Interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleBtn = document.getElementById('toggle-consent-btn');
+            const consentDetails = document.getElementById('consent-details');
+            const chevron = document.getElementById('consent-chevron');
+
+            if(toggleBtn && consentDetails && chevron) {
+                toggleBtn.addEventListener('click', () => {
+                    consentDetails.classList.toggle('expanded');
+                    if(consentDetails.classList.contains('expanded')) {
+                        chevron.style.transform = 'rotate(90deg)';
+                    } else {
+                        chevron.style.transform = 'rotate(0deg)';
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

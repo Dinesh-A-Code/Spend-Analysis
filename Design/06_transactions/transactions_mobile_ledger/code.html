@@ -1,0 +1,387 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Transactions - Spend Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-error-container": "#ffdad6",
+                "on-secondary": "#2f3036",
+                "surface-container-high": "#292a2f",
+                "surface-container-low": "#1a1b20",
+                "background": "#121318",
+                "secondary-fixed": "#e3e1ea",
+                "accent-insight-blue": "#3B82F6",
+                "on-tertiary": "#2e3038",
+                "secondary-fixed-dim": "#c6c6ce",
+                "nav-surface": "#F9F9F9",
+                "surface-dim": "#121318",
+                "on-secondary-fixed-variant": "#46464d",
+                "on-primary-container": "#85858c",
+                "text-primary": "#F5F5F5",
+                "secondary": "#c6c6ce",
+                "inverse-primary": "#5d5e65",
+                "on-surface": "#e3e1e9",
+                "tertiary-container": "#1b1d25",
+                "on-primary-fixed-variant": "#46464d",
+                "surface-container-lowest": "#0d0e13",
+                "primary-fixed-dim": "#c7c6ce",
+                "on-error": "#690005",
+                "on-tertiary-fixed-variant": "#45464f",
+                "inverse-on-surface": "#2f3035",
+                "secondary-container": "#46464d",
+                "accent-insight-purple": "#8B5CF6",
+                "on-primary": "#2f3036",
+                "status-success": "#10B981",
+                "on-primary-fixed": "#1a1b21",
+                "text-secondary": "#A1A1AA",
+                "error-container": "#93000a",
+                "on-tertiary-fixed": "#191b23",
+                "on-surface-variant": "#c7c6cb",
+                "primary-fixed": "#e3e1ea",
+                "error": "#ffb4ab",
+                "text-metadata": "#71717A",
+                "on-background": "#e3e1e9",
+                "status-error": "#EF4444",
+                "tertiary": "#c5c6d0",
+                "inverse-surface": "#e3e1e9",
+                "surface-bright": "#38393e",
+                "border-subtle": "rgba(255, 255, 255, 0.06)",
+                "outline": "#919095",
+                "primary-container": "#1c1d23",
+                "on-secondary-container": "#b5b4bc",
+                "on-secondary-fixed": "#1a1b21",
+                "tertiary-fixed": "#e1e2ec",
+                "surface-variant": "#34343a",
+                "primary": "#c7c6ce",
+                "status-warning": "#F59E0B",
+                "outline-variant": "#46464b",
+                "tertiary-fixed-dim": "#c5c6d0",
+                "on-tertiary-container": "#83858e",
+                "surface-container": "#1e1f24",
+                "surface-container-highest": "#34343a",
+                "surface": "#121318",
+                "surface-tint": "#c7c6ce"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-padding": "16px",
+                "base": "8px",
+                "margin-mobile": "20px",
+                "margin-desktop": "40px",
+                "gutter": "16px",
+                "section-gap": "24px",
+                "grid-base": "8px"
+        },
+        "fontFamily": {
+                "body-sm": [
+                        "Inter"
+                ],
+                "label-bold": [
+                        "Inter"
+                ],
+                "metadata": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "display-currency": [
+                        "Inter"
+                ],
+                "display-currency-mobile": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-bold": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "metadata": [
+                        "11px",
+                        {
+                                "lineHeight": "14px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-md": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-currency": [
+                        "40px",
+                        {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-currency-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen pb-[140px] md:pb-8 flex flex-col md:flex-row">
+<!-- Top App Bar (Web / Mobile Header) -->
+<header class="bg-background w-full flex justify-between items-center px-margin-mobile py-gutter sticky top-0 z-40 hidden md:flex border-b border-transparent md:border-border-subtle">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">Spend Analysis</h1>
+</div>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-on-surface-variant hover:text-on-surface transition-opacity duration-200 font-body-lg text-body-lg" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-opacity duration-200 font-body-lg text-body-lg" href="#">Analytics</a>
+<a class="text-on-surface hover:opacity-80 transition-opacity duration-200 font-body-lg text-body-lg font-bold" href="#">Transactions</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-opacity duration-200 font-body-lg text-body-lg" href="#">Budget</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-opacity duration-200 font-body-lg text-body-lg" href="#">Settings</a>
+</nav>
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface">notifications</span>
+</button>
+</header>
+<!-- Side Nav for Desktop Layout padding -->
+<aside class="hidden md:block w-64 shrink-0 px-margin-desktop py-section-gap"></aside>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-3xl mx-auto px-margin-mobile md:px-0 py-section-gap flex flex-col gap-section-gap pb-40">
+<!-- Mobile Header (Visible only on md:hidden) -->
+<div class="md:hidden flex justify-between items-center pt-2 pb-4">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">Spend Analysis</h1>
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container">
+<span class="material-symbols-outlined text-on-surface">notifications</span>
+</button>
+</div>
+<!-- Page Title & Summary -->
+<section class="flex flex-col gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface md:text-display-currency">Transactions</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-1">See where your money went</p>
+</div>
+<!-- Dynamic Summary Card -->
+<div class="bg-surface-container p-6 rounded-xl border border-border-subtle flex flex-col gap-2 relative overflow-hidden">
+<!-- Decorative background subtle gradient -->
+<div class="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none"></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant z-10">Total spent this period</p>
+<h3 class="font-display-currency-mobile text-display-currency-mobile md:font-display-currency md:text-display-currency text-on-surface z-10">₹8,420</h3>
+</div>
+</section>
+<!-- Controls (Period, Search, Filters) -->
+<section class="flex flex-col gap-6 sticky top-0 md:top-24 bg-background/90 backdrop-blur-md z-30 py-4 border-b border-border-subtle md:border-none md:py-0 md:bg-transparent">
+<!-- Period Selector -->
+<div class="flex gap-2 bg-surface-container p-1 rounded-lg self-start">
+<button class="px-4 py-2 rounded-md font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors">Daily</button>
+<button class="px-4 py-2 rounded-md font-body-sm text-body-sm text-on-surface bg-surface-container-highest shadow-sm border border-border-subtle transition-colors">Weekly</button>
+<button class="px-4 py-2 rounded-md font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors">Monthly</button>
+</div>
+<!-- Search Field -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container border border-border-subtle rounded-lg py-3 pl-12 pr-4 font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-outline-variant focus:ring-1 focus:ring-outline-variant transition-all" placeholder="Search transactions..." type="text">
+</div>
+<!-- Scrollable Filters -->
+<div class="flex flex-col gap-3">
+<!-- Payment Source Filters -->
+<div class="flex gap-2 overflow-x-auto hide-scrollbar pb-1 flex-nowrap">
+<span class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface-container-highest text-on-surface font-body-sm text-body-sm whitespace-nowrap cursor-pointer hover:bg-surface-container-high">All Sources</span>
+<span class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap cursor-pointer hover:bg-surface-container">Google Pay</span>
+<span class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap cursor-pointer hover:bg-surface-container">PhonePe</span>
+<span class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap cursor-pointer hover:bg-surface-container">Paytm</span>
+</div>
+<!-- Category Filters -->
+<div class="flex gap-2 overflow-x-auto hide-scrollbar pb-1 flex-nowrap">
+<span class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface-container-highest text-on-surface font-body-sm text-body-sm whitespace-nowrap cursor-pointer hover:bg-surface-container-high">All Categories</span>
+<span class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap cursor-pointer hover:bg-surface-container flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">restaurant</span> Food</span>
+<span class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap cursor-pointer hover:bg-surface-container flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">shopping_bag</span> Shopping</span>
+<span class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap cursor-pointer hover:bg-surface-container flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">directions_bus</span> Transport</span>
+<span class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap cursor-pointer hover:bg-surface-container flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">receipt_long</span> Bills</span>
+</div>
+</div>
+</section>
+<!-- Transaction List -->
+<section class="flex flex-col gap-4 mt-2">
+<div class="flex justify-between items-center px-1">
+<p class="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">This Week</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">24 transactions · ₹8,420 spent</p>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Transaction 1 -->
+<div class="bg-surface-container p-4 rounded-xl border border-border-subtle flex items-center justify-between group hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center border border-border-subtle">
+<span class="material-symbols-outlined text-status-warning">restaurant</span>
+</div>
+<div class="flex flex-col">
+<p class="font-headline-md text-headline-md text-on-surface">Swiggy</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Dinner order</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-bold text-label-bold text-text-secondary">Food</span>
+<span class="w-1 h-1 rounded-full bg-border-subtle"></span>
+<span class="font-label-bold text-label-bold text-accent-insight-blue">Google Pay</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<p class="font-headline-md text-headline-md text-on-surface">-₹320</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Today, 8:45 PM</p>
+</div>
+</div>
+<!-- Transaction 2 -->
+<div class="bg-surface-container p-4 rounded-xl border border-border-subtle flex items-center justify-between group hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center border border-border-subtle">
+<span class="material-symbols-outlined text-accent-insight-purple">shopping_bag</span>
+</div>
+<div class="flex flex-col">
+<p class="font-headline-md text-headline-md text-on-surface">Amazon</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kindle book</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-bold text-label-bold text-text-secondary">Shopping</span>
+<span class="w-1 h-1 rounded-full bg-border-subtle"></span>
+<span class="font-label-bold text-label-bold text-accent-insight-blue">Google Pay</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<p class="font-headline-md text-headline-md text-on-surface">-₹100</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Today, 4:12 PM</p>
+</div>
+</div>
+<!-- Transaction 3 -->
+<div class="bg-surface-container p-4 rounded-xl border border-border-subtle flex items-center justify-between group hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center border border-border-subtle">
+<span class="material-symbols-outlined text-on-surface">directions_bus</span>
+</div>
+<div class="flex flex-col">
+<p class="font-headline-md text-headline-md text-on-surface">Bus Transit</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Bus ticket</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-bold text-label-bold text-text-secondary">Transport</span>
+<span class="w-1 h-1 rounded-full bg-border-subtle"></span>
+<span class="font-label-bold text-label-bold text-accent-insight-blue">Google Pay</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<p class="font-headline-md text-headline-md text-on-surface">-₹80</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Today, 10:30 AM</p>
+</div>
+</div>
+<!-- Transaction 4 -->
+<div class="bg-surface-container p-4 rounded-xl border border-border-subtle flex items-center justify-between group hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center border border-border-subtle">
+<span class="material-symbols-outlined text-status-warning">restaurant</span>
+</div>
+<div class="flex flex-col">
+<p class="font-headline-md text-headline-md text-on-surface">Tea Shop</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Chai &amp; snacks</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-bold text-label-bold text-text-secondary">Food</span>
+<span class="w-1 h-1 rounded-full bg-border-subtle"></span>
+<span class="font-label-bold text-label-bold text-accent-insight-blue">Google Pay</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<p class="font-headline-md text-headline-md text-on-surface">-₹20</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Today, 9:15 AM</p>
+</div>
+</div>
+</div>
+<!-- Load More (Optional indication of more list items) -->
+<button class="w-full py-4 mt-2 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface bg-surface-container rounded-xl border border-border-subtle border-dashed transition-colors">
+                Load More Transactions
+            </button>
+</section>
+</main>
+<!-- BottomNavBar (Mobile only per instructions for shell layout responsive pivot, but we render it for md:hidden per JSON layout mapping to typical mobile apps) -->
+<nav class="md:hidden fixed bottom-6 left-0 right-0 mx-auto w-[calc(100%-40px)] max-w-md z-50 flex justify-between items-center px-4 py-2 bg-nav-surface backdrop-blur-md border border-border-subtle shadow-lg rounded-full">
+<a class="flex flex-col items-center justify-center text-text-secondary px-4 py-1.5 hover:text-on-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">home</span>
+<span class="font-label-bold text-label-bold mt-1 text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary px-4 py-1.5 hover:text-on-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">insights</span>
+<span class="font-label-bold text-label-bold mt-1 text-[10px]">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-surface-container-highest text-on-surface rounded-full px-4 py-1.5 scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-on-surface" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-bold text-label-bold mt-1 text-[10px]">Transactions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary px-4 py-1.5 hover:text-on-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">account_balance_wallet</span>
+<span class="font-label-bold text-label-bold mt-1 text-[10px]">Budget</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary px-4 py-1.5 hover:text-on-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+<span class="font-label-bold text-label-bold mt-1 text-[10px]">Settings</span>
+</a>
+</nav>
+</body></html>

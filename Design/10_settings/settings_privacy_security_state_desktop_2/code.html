@@ -1,0 +1,259 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Settings &amp; Privacy - Spend Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-error-container": "#ffdad6",
+                "on-secondary": "#2f3036",
+                "surface-container-high": "#292a2f",
+                "surface-container-low": "#1a1b20",
+                "background": "#121318",
+                "secondary-fixed": "#e3e1ea",
+                "accent-insight-blue": "#3B82F6",
+                "on-tertiary": "#2e3038",
+                "secondary-fixed-dim": "#c6c6ce",
+                "nav-surface": "#F9F9F9",
+                "surface-dim": "#121318",
+                "on-secondary-fixed-variant": "#46464d",
+                "on-primary-container": "#85858c",
+                "text-primary": "#F5F5F5",
+                "secondary": "#c6c6ce",
+                "inverse-primary": "#5d5e65",
+                "on-surface": "#e3e1e9",
+                "tertiary-container": "#1b1d25",
+                "on-primary-fixed-variant": "#46464d",
+                "surface-container-lowest": "#0d0e13",
+                "primary-fixed-dim": "#c7c6ce",
+                "on-error": "#690005",
+                "on-tertiary-fixed-variant": "#45464f",
+                "inverse-on-surface": "#2f3035",
+                "secondary-container": "#46464d",
+                "accent-insight-purple": "#8B5CF6",
+                "on-primary": "#2f3036",
+                "status-success": "#10B981",
+                "on-primary-fixed": "#1a1b21",
+                "text-secondary": "#A1A1AA",
+                "error-container": "#93000a",
+                "on-tertiary-fixed": "#191b23",
+                "on-surface-variant": "#c7c6cb",
+                "primary-fixed": "#e3e1ea",
+                "error": "#ffb4ab",
+                "text-metadata": "#71717A",
+                "on-background": "#e3e1e9",
+                "status-error": "#EF4444",
+                "tertiary": "#c5c6d0",
+                "inverse-surface": "#e3e1e9",
+                "surface-bright": "#38393e",
+                "border-subtle": "rgba(255, 255, 255, 0.06)",
+                "outline": "#919095",
+                "primary-container": "#1c1d23",
+                "on-secondary-container": "#b5b4bc",
+                "on-secondary-fixed": "#1a1b21",
+                "tertiary-fixed": "#e1e2ec",
+                "surface-variant": "#34343a",
+                "primary": "#c7c6ce",
+                "status-warning": "#F59E0B",
+                "outline-variant": "#46464b",
+                "tertiary-fixed-dim": "#c5c6d0",
+                "on-tertiary-container": "#83858e",
+                "surface-container": "#1e1f24",
+                "surface-container-highest": "#34343a",
+                "surface": "#121318",
+                "surface-tint": "#c7c6ce"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-padding": "16px",
+                "base": "8px",
+                "margin-mobile": "20px",
+                "margin-desktop": "40px",
+                "gutter": "16px"
+        },
+        "fontFamily": {
+                "body-sm": [
+                        "Inter"
+                ],
+                "label-bold": [
+                        "Inter"
+                ],
+                "metadata": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "display-currency": [
+                        "Inter"
+                ],
+                "display-currency-mobile": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-bold": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "metadata": [
+                        "11px",
+                        {
+                                "lineHeight": "14px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-md": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-currency": [
+                        "40px",
+                        {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-currency-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-lg min-h-screen selection:bg-surface-container-highest flex flex-col">
+<!-- Top App Bar -->
+<header class="docked full-width top-0 bg-surface/80 backdrop-blur-md border-b border-border-subtle flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full z-40">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">Spend Analysis</h1>
+<span class="text-on-surface-variant hidden md:inline">|</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant hidden md:inline">Settings &amp; Privacy</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container-high transition-colors scale-95 active:duration-100 p-2 rounded-full">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-border-subtle">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A close up, high quality studio portrait of a professional modern Indian male in his 30s, looking slightly off camera, lit with dramatic rim lighting against a deep dark background. Minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHRzNFCFsGrJu2AAso56Q8lY4Czq1YELtduMrQwuLn71UyT1kHZ0VMEEw-OatethhrpbYaeq7BZjVc_AVWj4AHsdSFjjjTo1MkaQdy_-CTpLCU5B7oScmrYfDGxvyd_BBshcyVhCd4emA7FtiJoGJD7N_fmkNwJXaiSYD9-BAs3_VONV3NP-ur_6eBltSvctkPWYM91stQJmertYsUtxUSrUFP-CFZ4cckpZAmv-NpbGqBDW_feSUD">
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<div class="flex-1 flex max-w-7xl mx-auto w-full px-margin-mobile md:px-margin-desktop py-8 gap-section-gap pb-40">
+<!-- Left Navigation Panel (Desktop Only) -->
+<nav class="hidden md:flex flex-col w-64 border-r border-border-subtle pr-8 gap-2">
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all text-left" onclick="showSection('profile')">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-body-lg text-body-lg">Profile</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all text-left" onclick="showSection('financial')">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-body-lg text-body-lg">Financial Connections</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all text-left" onclick="showSection('privacy')">
+<span class="material-symbols-outlined" data-icon="privacy_tip">privacy_tip</span>
+<span class="font-body-lg text-body-lg">Data &amp; Privacy</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-surface-container-high border-r-2 border-primary transition-all text-left" onclick="showSection('security')">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span class="font-body-lg text-body-lg">Security</span>
+</button>
+</nav>
+<!-- Right Content Area -->
+<main class="flex-1 flex flex-col gap-6 w-full"><div class="flex flex-col gap-6" id="section-security"><div class="flex flex-col gap-2"><h2 class="font-headline-lg text-headline-lg text-on-surface">Security</h2><p class="text-on-surface-variant font-body-sm text-body-sm">Manage your account security and active session.</p></div><div class="flex flex-col gap-4"><div class="bg-surface border border-border-subtle rounded-xl p-6 flex flex-col gap-4"><div class="flex flex-col gap-1"><h3 class="font-headline-md text-headline-md text-on-surface">Password</h3><p class="text-on-surface-variant font-body-sm text-body-sm">Keep your Spend Analysis account secure.</p></div><div class="bg-surface-container-low p-3 rounded-lg border border-border-subtle"><p class="text-on-surface font-body-sm text-body-sm">Password ••••••••••••</p></div><button class="text-primary font-body-sm text-body-sm flex items-center gap-1 hover:underline w-fit">Change password <span class="material-symbols-outlined text-[18px]">arrow_forward</span></button></div><div class="bg-surface border border-border-subtle rounded-xl p-6 flex flex-col gap-4"><div class="flex justify-between items-start"><div class="flex flex-col gap-1"><h3 class="font-headline-md text-headline-md text-on-surface">Active Session</h3><div class="flex items-center gap-2 mt-1"><span class="w-2 h-2 rounded-full bg-status-success"></span><p class="text-on-surface font-body-sm text-body-sm">Current session Active</p></div></div></div><div class="bg-surface-container-low p-4 rounded-lg border border-border-subtle flex flex-col gap-1"><p class="text-on-surface-variant font-body-sm text-body-sm">Device: This device</p><p class="text-on-surface-variant font-body-sm text-body-sm">Last activity: Just now</p></div><button class="px-6 py-2 border border-border-subtle hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm text-body-sm transition-colors w-fit">Log out</button></div><div class="bg-surface-container-low border border-border-subtle rounded-lg p-4 flex flex-col gap-2"><h4 class="text-on-surface font-label-bold text-label-bold uppercase tracking-wider">Your security</h4><p class="text-on-surface-variant font-body-sm text-body-sm">Your account credentials are protected using secure authentication. Spend Analysis does not require or store your bank passwords or UPI PIN.</p></div></div></div></main>
+</div>
+<!-- Bottom Navigation Shell (Mobile & Desktop per prompt constraints) -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md rounded-full bg-nav-surface border border-border-subtle shadow-lg shadow-black/20 z-50 flex justify-around items-center px-2 py-2">
+<a class="flex flex-col items-center justify-center text-text-muted p-3 hover:scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-bold text-label-bold mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-muted p-3 hover:scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-label-bold text-label-bold mt-1">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-muted p-3 hover:scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-bold text-label-bold mt-1">Transactions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-muted p-3 hover:scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-bold text-label-bold mt-1">Budget</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-on-secondary-fixed text-on-secondary-fixed-variant rounded-full p-3 hover:scale-105 transition-transform shadow-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings" data-weight="fill" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-bold text-label-bold mt-1">Settings</span>
+</a>
+</nav>
+<script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = ['profile', 'financial', 'privacy', 'security'];
+            sections.forEach(id => {
+                const el = document.getElementById('section-' + id);
+                if (el) {
+                    el.classList.add('hidden');
+                    el.classList.remove('flex');
+                }
+            });
+            
+            // Show target section
+            const targetEl = document.getElementById('section-' + sectionId);
+            if (targetEl) {
+                targetEl.classList.remove('hidden');
+                targetEl.classList.add('flex');
+            }
+        }
+    </script>
+</body></html>

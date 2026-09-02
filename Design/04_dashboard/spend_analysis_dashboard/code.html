@@ -1,0 +1,463 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Spend Analysis Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-error-container": "#ffdad6",
+                "on-secondary": "#2f3036",
+                "surface-container-high": "#292a2f",
+                "surface-container-low": "#1a1b20",
+                "background": "#121318",
+                "secondary-fixed": "#e3e1ea",
+                "accent-insight-blue": "#3B82F6",
+                "on-tertiary": "#2e3038",
+                "secondary-fixed-dim": "#c6c6ce",
+                "nav-surface": "#F9F9F9",
+                "surface-dim": "#121318",
+                "on-secondary-fixed-variant": "#46464d",
+                "on-primary-container": "#85858c",
+                "text-primary": "#F5F5F5",
+                "secondary": "#c6c6ce",
+                "inverse-primary": "#5d5e65",
+                "on-surface": "#e3e1e9",
+                "tertiary-container": "#1b1d25",
+                "on-primary-fixed-variant": "#46464d",
+                "surface-container-lowest": "#0d0e13",
+                "primary-fixed-dim": "#c7c6ce",
+                "on-error": "#690005",
+                "on-tertiary-fixed-variant": "#45464f",
+                "inverse-on-surface": "#2f3035",
+                "secondary-container": "#46464d",
+                "accent-insight-purple": "#8B5CF6",
+                "on-primary": "#2f3036",
+                "status-success": "#10B981",
+                "on-primary-fixed": "#1a1b21",
+                "text-secondary": "#A1A1AA",
+                "error-container": "#93000a",
+                "on-tertiary-fixed": "#191b23",
+                "on-surface-variant": "#c7c6cb",
+                "primary-fixed": "#e3e1ea",
+                "error": "#ffb4ab",
+                "text-metadata": "#71717A",
+                "on-background": "#e3e1e9",
+                "status-error": "#EF4444",
+                "tertiary": "#c5c6d0",
+                "inverse-surface": "#e3e1e9",
+                "surface-bright": "#38393e",
+                "border-subtle": "rgba(255, 255, 255, 0.06)",
+                "outline": "#919095",
+                "primary-container": "#1c1d23",
+                "on-secondary-container": "#b5b4bc",
+                "on-secondary-fixed": "#1a1b21",
+                "tertiary-fixed": "#e1e2ec",
+                "surface-variant": "#34343a",
+                "primary": "#c7c6ce",
+                "status-warning": "#F59E0B",
+                "outline-variant": "#46464b",
+                "tertiary-fixed-dim": "#c5c6d0",
+                "on-tertiary-container": "#83858e",
+                "surface-container": "#1e1f24",
+                "surface-container-highest": "#34343a",
+                "surface": "#121318",
+                "surface-tint": "#c7c6ce",
+                "accent-upi-blue": "#3B82F6",
+                "accent-upi-purple": "#8B5CF6"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px",
+                "2xl": "2rem"
+        },
+        "spacing": {
+                "container-padding": "16px",
+                "base": "8px",
+                "margin-mobile": "20px",
+                "margin-desktop": "40px",
+                "gutter": "16px",
+                "section-gap": "24px",
+                "grid-base": "8px"
+        },
+        "fontFamily": {
+                "body-sm": [
+                        "Inter"
+                ],
+                "label-bold": [
+                        "Inter"
+                ],
+                "metadata": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "display-currency": [
+                        "Inter"
+                ],
+                "display-currency-mobile": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "insight-narrative": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-bold": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "metadata": [
+                        "11px",
+                        {
+                                "lineHeight": "14px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-md": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-currency": [
+                        "40px",
+                        {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-currency-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Hide scrollbar for carousel */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-background min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-margin-mobile py-4 bg-background dark:bg-background top-0 z-40 sticky">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-border-subtle">
+<img class="w-full h-full object-cover" data-alt="A detailed headshot portrait of a professional modern user named Amit, against a dark studio background, high quality, soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_4EjgZ2Y8KKKb_VkbHIgBaCeHKb4ilxFfZYXmEX6_aXD54jXz8C274udUZJ_chhwNixJSOgySJCbXHPp4Bl_L1ViTvfTsqXTXvaYqlXFE46jh10DNxvrxcqgHEzowloXYAip6P58Cq7w07ohHDXgK6gpGPGNYq9AShgwqYcOGn9pMZ2CCE4PxLzHVYLcIgnQRpOJsc7AHNbu5MZas6mTdqgETT5B0jNWWafXm4CyqzLDSOTv_ax9l">
+</div>
+<div>
+<p class="text-label-bold font-label-bold text-on-surface-variant">Hello, Amit</p>
+<h1 class="text-headline-md font-headline-md font-bold text-on-surface">Spend Analysis</h1>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container border border-border-subtle text-on-surface scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="px-margin-mobile md:px-margin-desktop space-y-section-gap max-w-4xl mx-auto">
+<!-- Period Selector Segmented Control -->
+<div class="flex bg-surface-container-low p-1 rounded-full border border-border-subtle w-full max-w-sm mx-auto">
+<button class="flex-1 text-center py-2 text-label-bold font-label-bold text-on-surface-variant rounded-full transition-all">Daily</button>
+<button class="flex-1 text-center py-2 text-label-bold font-label-bold text-on-surface bg-surface-container-highest shadow-sm rounded-full transition-all">Weekly</button>
+<button class="flex-1 text-center py-2 text-label-bold font-label-bold text-on-surface-variant rounded-full transition-all">Monthly</button>
+</div>
+<!-- Primary Card: Weekly Spending -->
+<section class="bg-surface-container rounded-2xl p-6 border border-border-subtle relative overflow-hidden flex flex-col items-center justify-center text-center">
+<!-- Decorative gradient blur behind -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none"></div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-2 z-10">Weekly Spending</p>
+<h2 class="text-display-currency-mobile md:text-display-currency font-display-currency-mobile md:font-display-currency text-on-surface z-10">₹8,420</h2>
+<div class="flex items-center gap-2 mt-4 bg-status-error/10 px-3 py-1.5 rounded-full z-10 border border-status-error/20">
+<span class="material-symbols-outlined text-status-error text-sm">trending_up</span>
+<span class="text-label-bold font-label-bold text-status-error">₹1,200 higher than last week</span>
+</div>
+</section>
+<!-- Where you paid (UPI Sources) - Bento Grid Style -->
+<section class="space-y-4">
+<h3 class="text-headline-md font-headline-md font-semibold text-on-surface">Where you paid</h3>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<!-- Google Pay Card (Clickable/Active State Simulation) -->
+<button class="bg-surface-container-high rounded-xl p-4 border border-accent-upi-blue border-l-4 text-left transition-transform active:scale-95 hover:bg-surface-bright relative overflow-hidden group" onclick="toggleBottomSheet()">
+<div class="absolute inset-0 bg-accent-upi-blue/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center gap-2 mb-3">
+<div class="w-8 h-8 rounded-full bg-background flex items-center justify-center">
+<span class="material-symbols-outlined text-accent-upi-blue text-sm">account_balance_wallet</span>
+</div>
+<span class="text-label-bold font-label-bold text-on-surface">GPay</span>
+</div>
+<p class="text-headline-md font-headline-md text-on-surface">₹4,320</p>
+</button>
+<!-- PhonePe Card -->
+<div class="bg-surface-container rounded-xl p-4 border border-border-subtle border-l-4 border-l-accent-upi-purple text-left relative overflow-hidden">
+<div class="flex items-center gap-2 mb-3">
+<div class="w-8 h-8 rounded-full bg-background flex items-center justify-center">
+<span class="material-symbols-outlined text-accent-upi-purple text-sm">payments</span>
+</div>
+<span class="text-label-bold font-label-bold text-on-surface">PhonePe</span>
+</div>
+<p class="text-headline-md font-headline-md text-on-surface">₹2,800</p>
+</div>
+<!-- Paytm Card -->
+<div class="bg-surface-container rounded-xl p-4 border border-border-subtle border-l-4 border-l-blue-400 text-left relative overflow-hidden">
+<div class="flex items-center gap-2 mb-3">
+<div class="w-8 h-8 rounded-full bg-background flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-400 text-sm">qr_code_scanner</span>
+</div>
+<span class="text-label-bold font-label-bold text-on-surface">Paytm</span>
+</div>
+<p class="text-headline-md font-headline-md text-on-surface">₹1,300</p>
+</div>
+</div>
+</section>
+<!-- Spending Categories & Plan Layout (Responsive) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-section-gap">
+<!-- Spending Categories Minimal Donut -->
+<section class="bg-surface-container rounded-2xl p-6 border border-border-subtle">
+<h3 class="text-headline-md font-headline-md font-semibold text-on-surface mb-6">Categories</h3>
+<div class="flex items-center justify-between">
+<!-- CSS simulated donut chart -->
+<div class="relative w-32 h-32 rounded-full flex items-center justify-center" style="background: conic-gradient(
+                        #EF4444 0% 35%, 
+                        #3B82F6 35% 60%, 
+                        #10B981 60% 80%, 
+                        #8e9192 80% 100%
+                    );">
+<div class="absolute w-24 h-24 bg-surface-container rounded-full flex items-center justify-center border border-border-subtle">
+<span class="text-label-bold font-label-bold text-on-surface">100%</span>
+</div>
+</div>
+<!-- Legend -->
+<div class="space-y-3 flex-1 ml-6">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-status-error"></div>Food</div>
+<span class="text-on-surface">35%</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-accent-upi-blue"></div>Shopping</div>
+<span class="text-on-surface">25%</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-status-success"></div>Transport</div>
+<span class="text-on-surface">20%</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-outline"></div>Other</div>
+<span class="text-on-surface">20%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Spending Plan Progress Bars -->
+<section class="bg-surface-container rounded-2xl p-6 border border-border-subtle flex flex-col gap-6">
+<h3 class="text-headline-md font-headline-md font-semibold text-on-surface">Spending Plan</h3>
+<!-- Food Plan (Over budget) -->
+<div>
+<div class="flex justify-between text-body-sm font-body-sm mb-2">
+<span class="text-on-surface">Food</span>
+<span class="text-status-error font-semibold">₹4,500 / ₹4,000</span>
+</div>
+<div class="h-2 w-full bg-surface-bright rounded-full overflow-hidden">
+<div class="h-full bg-status-error rounded-full w-full relative">
+<!-- Indicates over by drawing a line at 100% of budget -->
+<div class="absolute top-0 bottom-0 left-[88%] w-0.5 bg-background"></div>
+</div>
+</div>
+</div>
+<!-- Transport Plan (Under budget) -->
+<div>
+<div class="flex justify-between text-body-sm font-body-sm mb-2">
+<span class="text-on-surface">Transport</span>
+<span class="text-on-surface-variant">₹1,800 / ₹2,000</span>
+</div>
+<div class="h-2 w-full bg-surface-bright rounded-full overflow-hidden">
+<div class="h-full bg-status-success rounded-full" style="width: 90%;"></div>
+</div>
+</div>
+</section>
+</div>
+<!-- AI Insights Carousel -->
+<section class="space-y-4">
+<h3 class="text-headline-md font-headline-md font-semibold text-on-surface">Insights</h3>
+<div class="flex overflow-x-auto gap-4 pb-4 no-scrollbar -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0 snap-x">
+<!-- Insight 1 -->
+<div class="min-w-[280px] bg-surface-container rounded-xl p-4 border border-border-subtle snap-center flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-accent-upi-blue/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-accent-upi-blue text-sm icon-filled">lightbulb</span>
+</div>
+<p class="text-insight-narrative font-insight-narrative text-on-surface-variant">
+                        You spent <span class="text-on-surface font-semibold">₹520</span> through Google Pay today.
+                    </p>
+</div>
+<!-- Insight 2 -->
+<div class="min-w-[280px] bg-status-warning/10 rounded-xl p-4 border border-status-warning/20 snap-center flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-status-warning/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-status-warning text-sm icon-filled">warning</span>
+</div>
+<p class="text-insight-narrative font-insight-narrative text-status-warning">
+                        You have exceeded your Food spending plan by <span class="font-semibold">₹1,200</span>.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<!-- Applying exact styles from JSON execution instruction for BottomNavBar shape/layout -->
+<nav class="fixed bottom-6 left-0 right-0 z-50 flex justify-around items-center px-4 md:hidden">
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] rounded-[2rem] bg-nav-surface/90 backdrop-blur-xl shadow-lg shadow-black/10 border border-border-subtle/20 flex justify-around items-center px-2 py-2">
+<!-- Home (Active) -->
+<button class="flex flex-col items-center justify-center bg-background border border-border-subtle/10 text-on-background rounded-full px-6 py-2 transition-all duration-300 shadow-sm relative">
+<span class="material-symbols-outlined icon-filled">home</span>
+<!-- Label removed for the minimalist capsule active state style referenced in user prompt -->
+</button>
+<button class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant px-4 py-2 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">insights</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant px-4 py-2 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">receipt_long</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant px-4 py-2 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant px-4 py-2 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</nav>
+<!-- Google Pay Drill-Down Bottom Sheet (Initially Hidden) -->
+<!-- Using inline JS to toggle class for visibility -->
+<div class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex flex-col justify-end translate-y-full transition-transform duration-300 ease-out" id="gpay-bottom-sheet">
+<div class="bg-surface-container rounded-t-3xl border-t border-border-subtle p-6 max-h-[707px] overflow-y-auto w-full max-w-xl mx-auto pb-safe">
+<!-- Handle -->
+<div class="w-12 h-1.5 bg-surface-bright rounded-full mx-auto mb-6"></div>
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-headline-lg font-headline-lg font-semibold text-on-surface">Google Pay</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Recent transactions</p>
+</div>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-bright text-on-surface-variant hover:text-on-surface" onclick="toggleBottomSheet()">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<!-- Transaction List -->
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-surface rounded-xl border border-border-subtle">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+<div>
+<p class="text-body-lg font-body-lg font-medium text-on-surface">Swiggy</p>
+<p class="text-label-bold font-label-bold text-on-surface-variant">Food Delivery</p>
+</div>
+</div>
+<span class="text-body-lg font-body-lg font-semibold text-on-surface">-₹320</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface rounded-xl border border-border-subtle">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined">shopping_bag</span>
+</div>
+<div>
+<p class="text-body-lg font-body-lg font-medium text-on-surface">Amazon</p>
+<p class="text-label-bold font-label-bold text-on-surface-variant">Shopping</p>
+</div>
+</div>
+<span class="text-body-lg font-body-lg font-semibold text-on-surface">-₹100</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface rounded-xl border border-border-subtle">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500">
+<span class="material-symbols-outlined">directions_car</span>
+</div>
+<div>
+<p class="text-body-lg font-body-lg font-medium text-on-surface">Uber</p>
+<p class="text-label-bold font-label-bold text-on-surface-variant">Transport</p>
+</div>
+</div>
+<span class="text-body-lg font-body-lg font-semibold text-on-surface">-₹250</span>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle">
+<button class="w-full py-3 bg-surface-bright rounded-xl text-on-surface font-semibold hover:bg-surface-variant transition-colors">
+                    View All GPay Transactions
+                </button>
+</div>
+</div>
+</div>
+<script>
+        function toggleBottomSheet() {
+            const sheet = document.getElementById('gpay-bottom-sheet');
+            if (sheet.classList.contains('translate-y-full')) {
+                sheet.classList.remove('translate-y-full');
+            } else {
+                sheet.classList.add('translate-y-full');
+            }
+        }
+    </script>
+</body></html>

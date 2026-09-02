@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Spend Analysis - Account Connected</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#c6c6ce",
+                        "on-tertiary-fixed-variant": "#45464f",
+                        "inverse-surface": "#e3e1e9",
+                        "on-error-container": "#ffdad6",
+                        "border-subtle": "rgba(255, 255, 255, 0.06)",
+                        "on-tertiary": "#2e3038",
+                        "secondary-fixed": "#e3e1ea",
+                        "secondary-container": "#46464d",
+                        "on-error": "#690005",
+                        "tertiary-container": "#1b1d25",
+                        "on-surface": "#e3e1e9",
+                        "surface-tint": "#c7c6ce",
+                        "tertiary": "#c5c6d0",
+                        "on-secondary-fixed-variant": "#46464d",
+                        "accent-insight-blue": "#3B82F6",
+                        "surface-container": "#1e1f24",
+                        "on-tertiary-fixed": "#191b23",
+                        "tertiary-fixed-dim": "#c5c6d0",
+                        "surface-container-highest": "#34343a",
+                        "text-metadata": "#71717A",
+                        "on-primary": "#2f3036",
+                        "error-container": "#93000a",
+                        "outline-variant": "#46464b",
+                        "primary-fixed-dim": "#c7c6ce",
+                        "status-warning": "#F59E0B",
+                        "surface-container-low": "#1a1b20",
+                        "surface-container-high": "#292a2f",
+                        "on-secondary-fixed": "#1a1b21",
+                        "outline": "#919095",
+                        "on-secondary": "#2f3036",
+                        "background": "#121318",
+                        "on-primary-fixed": "#1a1b21",
+                        "surface-variant": "#34343a",
+                        "on-surface-variant": "#c7c6cb",
+                        "inverse-primary": "#5d5e65",
+                        "on-secondary-container": "#b5b4bc",
+                        "accent-insight-purple": "#8B5CF6",
+                        "surface-bright": "#38393e",
+                        "surface": "#121318",
+                        "status-error": "#EF4444",
+                        "error": "#ffb4ab",
+                        "text-primary": "#F5F5F5",
+                        "tertiary-fixed": "#e1e2ec",
+                        "on-primary-container": "#85858c",
+                        "surface-dim": "#121318",
+                        "primary-fixed": "#e3e1ea",
+                        "nav-surface": "#F9F9F9",
+                        "secondary-fixed-dim": "#c6c6ce",
+                        "status-success": "#10B981",
+                        "on-tertiary-container": "#83858e",
+                        "text-secondary": "#A1A1AA",
+                        "surface-container-lowest": "#0d0e13",
+                        "on-primary-fixed-variant": "#46464d",
+                        "on-background": "#e3e1e9",
+                        "inverse-on-surface": "#2f3035",
+                        "primary": "#c7c6ce",
+                        "primary-container": "#1c1d23"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "40px",
+                        "margin-mobile": "20px",
+                        "gutter": "16px",
+                        "base": "8px",
+                        "container-padding": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "display-currency-mobile": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "label-bold": ["Inter", "sans-serif"],
+                        "display-currency": ["Inter", "sans-serif"],
+                        "metadata": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-currency-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-bold": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display-currency": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "metadata": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom animation for the success icon */
+        @keyframes scale-in {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-scale-in {
+            animation: scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-background text-primary font-body-sm min-h-screen flex flex-col antialiased selection:bg-primary selection:text-on-primary">
+<!-- Top Wordmark -->
+<header class="w-full flex justify-center py-6 px-margin-mobile">
+<h1 class="font-headline-md text-headline-md text-text-primary tracking-tight">Spend Analysis</h1>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col overflow-y-auto">
+<!-- Success Indicator & Header -->
+<section class="flex flex-col items-center mt-6 mb-10 px-margin-mobile text-center animate-scale-in">
+<div class="w-20 h-20 rounded-full bg-status-success/10 flex items-center justify-center mb-6 ring-1 ring-status-success/20 shadow-[0_0_40px_rgba(16,185,129,0.1)]">
+<span class="material-symbols-outlined text-status-success text-[40px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-text-primary mb-3">Account connected</h2>
+<p class="font-body-lg text-body-lg text-text-secondary max-w-[280px]">Your authorized financial account is now connected to Spend Analysis.</p>
+</section>
+<!-- Connected State Card -->
+<section class="px-margin-mobile mb-10">
+<div class="bg-surface-container-high border border-border-subtle rounded-xl p-5 flex justify-between items-center shadow-lg shadow-black/20">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-text-primary">ICICI Bank</span>
+<span class="font-metadata text-metadata text-text-secondary mt-1 tracking-wide">Demo / Sandbox</span>
+</div>
+<div class="flex items-center gap-2 bg-status-success/15 px-3 py-1.5 rounded-full border border-status-success/20">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success shadow-[0_0_6px_rgba(16,185,129,0.8)]"></span>
+<span class="font-label-bold text-label-bold text-status-success uppercase tracking-wider">Connected</span>
+</div>
+</div>
+</section>
+<!-- Data Access Summary -->
+<section class="px-margin-mobile mb-10">
+<h3 class="font-label-bold text-label-bold text-text-secondary uppercase tracking-widest mb-6 px-1">What happens next</h3>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center flex-shrink-0 border border-border-subtle">
+<span class="material-symbols-outlined text-primary text-xl">analytics</span>
+</div>
+<div class="flex flex-col pt-0.5">
+<span class="font-body-lg text-body-lg text-text-primary font-medium mb-1">Analyze your transactions</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Review your spending patterns.</span>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center flex-shrink-0 border border-border-subtle">
+<span class="material-symbols-outlined text-primary text-xl">track_changes</span>
+</div>
+<div class="flex flex-col pt-0.5">
+<span class="font-body-lg text-body-lg text-text-primary font-medium mb-1">Track your budgets</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Compare your spending with your plans.</span>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center flex-shrink-0 border border-border-subtle">
+<span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+</div>
+<div class="flex flex-col pt-0.5">
+<span class="font-body-lg text-body-lg text-text-primary font-medium mb-1">Get personalized insights</span>
+<span class="font-body-sm text-body-sm text-text-secondary">See data-backed spending insights.</span>
+</div>
+</li>
+</ul>
+</section>
+<!-- User Control & Privacy -->
+<section class="px-margin-mobile mb-8 mt-auto">
+<div class="bg-surface-container border border-border-subtle rounded-xl p-5 shadow-inner shadow-white/5">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-text-primary text-lg" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+<h4 class="font-body-lg text-body-lg text-text-primary font-semibold">You're in control</h4>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary pl-8">You can review or revoke your consent anytime from Settings.</p>
+</div>
+</section>
+</main>
+<!-- Pinned Footer Action -->
+<footer class="px-margin-mobile pb-8 pt-4 bg-gradient-to-t from-background via-background/95 to-transparent sticky bottom-0 z-10">
+<button class="w-full h-14 bg-primary text-on-primary font-headline-md text-headline-md rounded-xl shadow-[0_8px_20px_rgba(199,198,206,0.15)] active:scale-[0.98] transition-all duration-200 mb-4 flex items-center justify-center gap-2">
+            Go to Dashboard
+            <span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+<p class="font-metadata text-metadata text-text-secondary text-center px-4">Spend Analysis only uses the financial information you authorized.</p>
+</footer>
+</body></html>

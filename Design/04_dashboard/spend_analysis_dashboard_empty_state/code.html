@@ -1,0 +1,235 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Empty Dashboard - Spend Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-container": "#1b1d25",
+                        "error-container": "#93000a",
+                        "nav-surface": "#F9F9F9",
+                        "on-primary-container": "#85858c",
+                        "on-secondary-fixed-variant": "#46464d",
+                        "on-primary-fixed-variant": "#46464d",
+                        "on-tertiary": "#2e3038",
+                        "tertiary-fixed": "#e1e2ec",
+                        "primary-fixed": "#e3e1ea",
+                        "accent-insight-blue": "#3B82F6",
+                        "on-background": "#e3e1e9",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary": "#2f3036",
+                        "surface-container": "#1e1f24",
+                        "surface-container-highest": "#34343a",
+                        "surface-container-lowest": "#0d0e13",
+                        "secondary-fixed-dim": "#c6c6ce",
+                        "secondary-container": "#46464d",
+                        "on-tertiary-fixed-variant": "#45464f",
+                        "status-success": "#10B981",
+                        "surface-container-low": "#1a1b20",
+                        "inverse-surface": "#e3e1e9",
+                        "inverse-on-surface": "#2f3035",
+                        "on-tertiary-fixed": "#191b23",
+                        "text-metadata": "#71717A",
+                        "on-secondary-fixed": "#1a1b21",
+                        "outline": "#919095",
+                        "border-subtle": "rgba(255, 255, 255, 0.06)",
+                        "surface-variant": "#34343a",
+                        "status-warning": "#F59E0B",
+                        "surface-bright": "#38393e",
+                        "outline-variant": "#46464b",
+                        "on-tertiary-container": "#83858e",
+                        "on-primary": "#2f3036",
+                        "primary-fixed-dim": "#c7c6ce",
+                        "surface-dim": "#121318",
+                        "primary": "#c7c6ce",
+                        "secondary-fixed": "#e3e1ea",
+                        "tertiary-fixed-dim": "#c5c6d0",
+                        "on-surface": "#e3e1e9",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#292a2f",
+                        "on-surface-variant": "#c7c6cb",
+                        "background": "#121318",
+                        "surface": "#121318",
+                        "tertiary": "#c5c6d0",
+                        "surface-tint": "#c7c6ce",
+                        "accent-insight-purple": "#8B5CF6",
+                        "on-secondary-container": "#b5b4bc",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#1a1b21",
+                        "text-primary": "#F5F5F5",
+                        "primary-container": "#1c1d23",
+                        "inverse-primary": "#5d5e65",
+                        "text-secondary": "#A1A1AA",
+                        "secondary": "#c6c6ce",
+                        "status-error": "#EF4444"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    spacing: {
+                        "container-padding": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "16px",
+                        "base": "8px",
+                        "margin-mobile": "20px"
+                    },
+                    fontFamily: {
+                        "display-currency": ["Inter", "sans-serif"],
+                        "label-bold": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "display-currency-mobile": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "metadata": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "display-currency": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-bold": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-currency-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "metadata": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #18191F; /* Specific background requested */
+            color: #F5F5F5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .bg-elevated {
+            background-color: #202126;
+        }
+        .bg-card {
+            background-color: #292A30;
+        }
+        .glass-nav {
+            background: rgba(249, 249, 249, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col pb-32">
+<!-- HEADER -->
+<header class="px-margin-mobile pt-10 pb-6 flex justify-between items-start sticky top-0 bg-[#18191F]/90 backdrop-blur-sm z-40 border-b border-border-subtle">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Good morning</h1>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">Let's get your spending organized.</p>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-elevated border border-border-subtle">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span class="font-metadata text-metadata text-text-secondary">No account connected</span>
+</div>
+</header>
+<!-- MAIN CONTENT -->
+<main class="flex-1 px-margin-mobile flex flex-col gap-8 mt-6">
+<!-- EMPTY STATE SECTION -->
+<section class="flex flex-col items-center justify-center py-10 bg-elevated rounded-3xl border border-border-subtle text-center px-6 shadow-sm">
+<div class="w-20 h-20 rounded-full bg-card border border-border-subtle flex items-center justify-center mb-6 shadow-inner">
+<span class="material-symbols-outlined text-4xl text-text-secondary" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary mb-3">Connect your financial account</h2>
+<p class="font-body-sm text-body-sm text-text-secondary mb-8 max-w-xs mx-auto">Connect an account through a consent-based connection to start analyzing your spending, budgets, and trends.</p>
+<button class="w-full max-w-xs bg-primary-fixed text-on-primary-fixed font-body-lg text-body-lg font-semibold py-3.5 rounded-2xl hover:opacity-90 transition-opacity active:scale-[0.98]">
+                Connect Account
+            </button>
+<button class="mt-4 font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors">
+                Maybe later
+            </button>
+</section>
+<!-- PREVIEW SECTION -->
+<section class="flex flex-col gap-4">
+<h3 class="font-body-sm text-body-sm text-text-secondary font-medium px-2 uppercase tracking-wider">Once connected, you'll see</h3>
+<div class="flex flex-col gap-3">
+<!-- Preview Item 1 -->
+<div class="flex items-center gap-4 bg-card p-4 rounded-2xl border border-border-subtle">
+<div class="w-10 h-10 rounded-full bg-elevated flex items-center justify-center border border-border-subtle">
+<span class="material-symbols-outlined text-text-secondary" style="font-variation-settings: 'FILL' 1;">pie_chart</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg text-primary font-medium">Spending overview</h4>
+<p class="font-body-sm text-body-sm text-text-secondary">See where your money goes.</p>
+</div>
+</div>
+<!-- Preview Item 2 -->
+<div class="flex items-center gap-4 bg-card p-4 rounded-2xl border border-border-subtle">
+<div class="w-10 h-10 rounded-full bg-elevated flex items-center justify-center border border-border-subtle">
+<span class="material-symbols-outlined text-text-secondary" style="font-variation-settings: 'FILL' 1;">track_changes</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg text-primary font-medium">Budget progress</h4>
+<p class="font-body-sm text-body-sm text-text-secondary">Compare spending with your plans.</p>
+</div>
+</div>
+<!-- Preview Item 3 -->
+<div class="flex items-center gap-4 bg-card p-4 rounded-2xl border border-border-subtle">
+<div class="w-10 h-10 rounded-full bg-elevated flex items-center justify-center border border-border-subtle">
+<span class="material-symbols-outlined text-text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">auto_awesome</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg text-primary font-medium">AI insights</h4>
+<p class="font-body-sm text-body-sm text-text-secondary">Get data-backed insights from your spending.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="mt-4 mb-8 text-center px-4">
+<p class="font-metadata text-metadata text-text-secondary flex items-center justify-center gap-1.5 opacity-80">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                You choose what financial information you allow us to access.
+            </p>
+</footer>
+</main>
+<!-- BOTTOM NAVIGATION (Shared Component) -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-md rounded-full z-50 glass-nav shadow-lg flex justify-around items-center p-2">
+<!-- Home (ACTIVE) -->
+<button class="flex flex-col items-center justify-center bg-primary-fixed text-on-primary-fixed rounded-full px-4 py-2 scale-105 shadow-sm active:scale-95 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-bold text-label-bold mt-1 hidden">Home</span>
+</button>
+<!-- Analytics (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-secondary-fixed-variant px-4 py-2 hover:text-primary-fixed-dim active:scale-95 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined text-2xl">insights</span>
+<span class="font-label-bold text-label-bold mt-1 hidden">Analytics</span>
+</button>
+<!-- Transactions (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-secondary-fixed-variant px-4 py-2 hover:text-primary-fixed-dim active:scale-95 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined text-2xl">receipt_long</span>
+<span class="font-label-bold text-label-bold mt-1 hidden">Transactions</span>
+</button>
+<!-- Budget (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-secondary-fixed-variant px-4 py-2 hover:text-primary-fixed-dim active:scale-95 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
+<span class="font-label-bold text-label-bold mt-1 hidden">Budget</span>
+</button>
+<!-- Settings (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-secondary-fixed-variant px-4 py-2 hover:text-primary-fixed-dim active:scale-95 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<span class="font-label-bold text-label-bold mt-1 hidden">Settings</span>
+</button>
+</nav>
+
+
+</body></html>

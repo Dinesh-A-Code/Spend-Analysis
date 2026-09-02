@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VaultSpend - Spend Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-secondary-fixed": "#1a1b21",
+                "on-tertiary": "#2e3038",
+                "status-error": "#EF4444",
+                "surface-dim": "#121318",
+                "on-primary-fixed-variant": "#46464d",
+                "status-warning": "#F59E0B",
+                "inverse-primary": "#5d5e65",
+                "secondary-fixed-dim": "#c6c6ce",
+                "on-primary": "#2f3036",
+                "primary-container": "#1c1d23",
+                "on-tertiary-fixed-variant": "#45464f",
+                "accent-insight-purple": "#8B5CF6",
+                "text-secondary": "#A1A1AA",
+                "border-subtle": "rgba(255, 255, 255, 0.06)",
+                "surface-bright": "#38393e",
+                "secondary-fixed": "#e3e1ea",
+                "text-metadata": "#71717A",
+                "primary-fixed-dim": "#c7c6ce",
+                "surface-container": "#1e1f24",
+                "on-surface-variant": "#c7c6cb",
+                "primary": "#c7c6ce",
+                "background": "#121318",
+                "on-secondary-container": "#b5b4bc",
+                "on-secondary-fixed-variant": "#46464d",
+                "inverse-surface": "#e3e1e9",
+                "tertiary": "#c5c6d0",
+                "surface-container-high": "#292a2f",
+                "error": "#ffb4ab",
+                "surface": "#121318",
+                "on-primary-container": "#85858c",
+                "surface-tint": "#c7c6ce",
+                "text-primary": "#F5F5F5",
+                "secondary": "#c6c6ce",
+                "on-primary-fixed": "#1a1b21",
+                "on-tertiary-fixed": "#191b23",
+                "on-surface": "#e3e1e9",
+                "secondary-container": "#46464d",
+                "tertiary-fixed": "#e1e2ec",
+                "surface-container-lowest": "#0d0e13",
+                "on-error-container": "#ffdad6",
+                "surface-container-highest": "#34343a",
+                "primary-fixed": "#e3e1ea",
+                "on-secondary": "#2f3036",
+                "on-background": "#e3e1e9",
+                "nav-surface": "#F9F9F9",
+                "inverse-on-surface": "#2f3035",
+                "tertiary-fixed-dim": "#c5c6d0",
+                "tertiary-container": "#1b1d25",
+                "status-success": "#10B981",
+                "error-container": "#93000a",
+                "surface-variant": "#34343a",
+                "on-tertiary-container": "#83858e",
+                "on-error": "#690005",
+                "surface-container-low": "#1a1b20",
+                "accent-insight-blue": "#3B82F6",
+                "outline-variant": "#46464b",
+                "outline": "#919095"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "base": "8px",
+                "margin-mobile": "20px",
+                "container-padding": "16px",
+                "margin-desktop": "40px",
+                "gutter": "16px"
+        },
+        "fontFamily": {
+                "label-bold": [
+                        "Inter"
+                ],
+                "metadata": [
+                        "Inter"
+                ],
+                "display-currency-mobile": [
+                        "Inter"
+                ],
+                "display-currency": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "body-sm": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "label-bold": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "metadata": [
+                        "11px",
+                        {
+                                "lineHeight": "14px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "display-currency-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-currency": [
+                        "40px",
+                        {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-sm antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 border-b border-[rgba(255,255,255,0.06)] bg-background flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-2 text-primary font-headline-md text-headline-md font-bold text-on-surface">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+            VaultSpend
+        </div>
+<div>
+<button class="font-label-bold text-label-bold bg-primary text-on-primary px-4 py-2 rounded-full hover:bg-surface-tint transition-colors active:scale-95 duration-200">
+                Get Started
+            </button>
+</div>
+</header>
+<main class="pt-24 pb-12 px-margin-mobile md:px-margin-desktop max-w-[1200px] mx-auto">
+<!-- Hero Section -->
+<section class="flex flex-col items-center text-center mb-16 pt-8">
+<h1 class="font-display-currency-mobile text-display-currency-mobile text-text-primary mb-4 max-w-[400px]">Understand Your Money. Spend Smarter.</h1>
+<p class="font-body-lg text-body-lg text-text-secondary mb-8 max-w-[400px]">Get clear insights into your finances with intelligent categorization and secure analysis.</p>
+<div class="flex gap-4">
+<button class="font-label-bold text-label-bold bg-primary text-on-primary px-6 py-3 rounded-full hover:bg-surface-tint transition-colors active:scale-95 duration-200 shadow-md">
+                    Get Started
+                </button>
+</div>
+</section>
+<!-- Hero Visual -->
+<section class="mb-24 flex justify-center">
+<div class="w-full max-w-[340px] h-[400px] bg-primary-container rounded-xl border border-[rgba(255,255,255,0.06)] overflow-hidden shadow-2xl relative" data-alt="A detailed, abstract digital representation of a sophisticated financial dashboard. The image should feature soft, glowing neon lines representing spending trends against a deep, matte charcoal background. The style is modern corporate, emphasizing data clarity and a premium, high-fidelity aesthetic with subtle tactile accents and depth created through soft neumorphism. The overall mood is composed and trustworthy." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7Q-APhE_UYNdhj5WjmnXlkEQSHQEGv0GGwmLWg8z9igm9OOKSNHDgs3x0OaJz09Yud5RXIjSW0oE7lWQJ8xret_wfBfS6IDhqvvkRjGDgU9cRP26addlYB4CVktptB5tpuFCM3xv1DkdhXeU1EwGSlkvYoTgiFhoAnsBPku1Bay56T6VLyWKEqGblpMNGXqhDBj0V3G-ozIXQHUyUmQyaFbQwXrN7ITSyxBAdtLVZM7eTSUIQ4wgZ')">
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-80"></div>
+</div>
+</section>
+<!-- Feature Cards (Stacked) -->
+<section class="flex flex-col gap-6 mb-24">
+<div class="bg-[#24252B] p-6 rounded-xl border border-[rgba(255,255,255,0.06)] shadow-sm">
+<span class="material-symbols-outlined text-accent-insight-blue mb-4 text-3xl" style="font-variation-settings: 'FILL' 1;">security</span>
+<h3 class="font-headline-md text-headline-md text-text-primary mb-2">Secure Financial Data</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">Bank-level encryption ensures your analysis is completely private and secure.</p>
+</div>
+<div class="bg-[#24252B] p-6 rounded-xl border border-[rgba(255,255,255,0.06)] shadow-sm">
+<span class="material-symbols-outlined text-status-success mb-4 text-3xl" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+<h3 class="font-headline-md text-headline-md text-text-primary mb-2">UPI Spending Analysis</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">Seamlessly track and categorize your UPI transactions in real-time.</p>
+</div>
+<div class="bg-[#24252B] p-6 rounded-xl border border-[rgba(255,255,255,0.06)] shadow-sm">
+<span class="material-symbols-outlined text-accent-insight-purple mb-4 text-3xl" style="font-variation-settings: 'FILL' 1;">query_stats</span>
+<h3 class="font-headline-md text-headline-md text-text-primary mb-2">Smart Analytics</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">Visualize your spending habits with clear, interactive charts and insights.</p>
+</div>
+<div class="bg-[#24252B] p-6 rounded-xl border border-[rgba(255,255,255,0.06)] shadow-sm">
+<span class="material-symbols-outlined text-status-warning mb-4 text-3xl" style="font-variation-settings: 'FILL' 1;">tips_and_updates</span>
+<h3 class="font-headline-md text-headline-md text-text-primary mb-2">AI Insights</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">Get personalized recommendations to optimize your budget and save more.</p>
+</div>
+</section>
+<!-- How It Works -->
+<section class="mb-24 bg-primary-container p-6 rounded-2xl border border-[rgba(255,255,255,0.06)] shadow-sm">
+<h2 class="font-headline-lg text-headline-lg text-text-primary mb-8 text-center">How It Works</h2>
+<div class="flex flex-col gap-8 relative before:absolute before:inset-0 before:ml-[1.1rem] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-outline-variant before:to-transparent">
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+<div class="flex items-center justify-center w-10 h-10 rounded-full border border-primary bg-[#24252B] text-primary font-label-bold z-10 shadow shrink-0">01</div>
+<div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 bg-[#24252B] rounded-xl border border-[rgba(255,255,255,0.06)] ml-4 md:ml-0">
+<h3 class="font-headline-md text-headline-md text-text-primary mb-1">Connect Securely</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">Link your accounts safely to begin analysis.</p>
+</div>
+</div>
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<div class="flex items-center justify-center w-10 h-10 rounded-full border border-outline-variant bg-surface text-outline z-10 shadow shrink-0">02</div>
+<div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 bg-[#24252B] rounded-xl border border-[rgba(255,255,255,0.06)] ml-4 md:ml-0">
+<h3 class="font-headline-md text-headline-md text-text-primary mb-1">Auto-Categorization</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">Transactions are intelligently sorted for you.</p>
+</div>
+</div>
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<div class="flex items-center justify-center w-10 h-10 rounded-full border border-outline-variant bg-surface text-outline z-10 shadow shrink-0">03</div>
+<div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 bg-[#24252B] rounded-xl border border-[rgba(255,255,255,0.06)] ml-4 md:ml-0">
+<h3 class="font-headline-md text-headline-md text-text-primary mb-1">Review Analytics</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">Explore trends and understand where your money goes.</p>
+</div>
+</div>
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<div class="flex items-center justify-center w-10 h-10 rounded-full border border-outline-variant bg-surface text-outline z-10 shadow shrink-0">04</div>
+<div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 bg-[#24252B] rounded-xl border border-[rgba(255,255,255,0.06)] ml-4 md:ml-0">
+<h3 class="font-headline-md text-headline-md text-text-primary mb-1">Optimize Spending</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">Use insights to make smarter financial decisions.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="flex flex-col items-center text-center mb-12">
+<h2 class="font-headline-lg text-headline-lg text-text-primary mb-4">Ready to take control?</h2>
+<button class="font-label-bold text-label-bold bg-primary text-on-primary px-8 py-4 rounded-full hover:bg-surface-tint transition-colors active:scale-95 duration-200 shadow-lg">
+                Get Started Now
+            </button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-[rgba(255,255,255,0.06)] bg-primary-container flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop gap-gutter">
+<div class="font-label-bold text-label-bold text-on-surface mb-4 md:mb-0">
+            VaultSpend
+        </div>
+<div class="flex flex-wrap justify-center gap-4 mb-4 md:mb-0">
+<a class="font-metadata text-metadata text-text-metadata hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-metadata text-metadata text-text-metadata hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-metadata text-metadata text-text-metadata hover:text-primary transition-colors" href="#">Security</a>
+<a class="font-metadata text-metadata text-text-metadata hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<div class="font-metadata text-metadata text-text-metadata">
+            © 2024 VaultSpend Financial. All rights reserved.
+        </div>
+</footer>
+</body></html>

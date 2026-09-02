@@ -1,0 +1,194 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Settings &amp; Privacy - Spend Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#1c1b1b",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-primary-container": "#7c7b7a",
+                        "accent-upi-purple": "#8B5CF6",
+                        "inverse-surface": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#474746",
+                        "secondary": "#c8c6c5",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-error": "#690005",
+                        "tertiary-container": "#0f0e0d",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "on-secondary": "#313030",
+                        "on-surface-variant": "#c4c7c7",
+                        "surface-dim": "#141313",
+                        "text-on-dark": "#FFFFFF",
+                        "inverse-primary": "#5f5e5e",
+                        "outline": "#8e9192",
+                        "on-tertiary": "#32302f",
+                        "outline-variant": "#444748",
+                        "primary": "#c9c6c5",
+                        "on-tertiary-fixed-variant": "#484645",
+                        "background": "#141313",
+                        "tertiary-fixed-dim": "#cac6c3",
+                        "tertiary-fixed": "#e6e1df",
+                        "on-surface": "#e5e2e1",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-variant": "#353434",
+                        "accent-upi-blue": "#3B82F6",
+                        "inverse-on-surface": "#313030",
+                        "primary-container": "#0e0e0e",
+                        "on-primary": "#313030",
+                        "status-error": "#EF4444",
+                        "on-tertiary-container": "#7e7b79",
+                        "surface-tint": "#c9c6c5",
+                        "on-tertiary-fixed": "#1d1b1a",
+                        "on-background": "#e5e2e1",
+                        "text-muted": "#888888",
+                        "status-success": "#10B981",
+                        "primary-fixed": "#e5e2e1",
+                        "secondary-container": "#474746",
+                        "surface-bright": "#3a3939",
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#353434",
+                        "nav-surface": "#F9F9F9",
+                        "surface-container": "#201f1f",
+                        "status-warning": "#F59E0B",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface-container-high": "#2b2a2a",
+                        "surface-container-lowest": "#0e0e0e",
+                        "border-subtle": "#2A2A2A",
+                        "tertiary": "#cac6c3",
+                        "on-secondary-container": "#b7b5b4",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface": "#141313"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "grid-base": "8px",
+                        "section-gap": "24px",
+                        "margin-desktop": "40px",
+                        "gutter": "16px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "insight-narrative": ["Inter"],
+                        "display-currency-mobile": ["Inter"],
+                        "label-bold": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-currency": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "insight-narrative": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "display-currency-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "label-bold": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-currency": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-lg min-h-screen selection:bg-surface-container-highest flex flex-col">
+<!-- Top App Bar -->
+<header class="docked full-width top-0 bg-surface/80 backdrop-blur-md border-b border-border-subtle flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full z-40">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">Spend Analysis</h1>
+<span class="text-on-surface-variant hidden md:inline">|</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant hidden md:inline">Settings &amp; Privacy</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container-high transition-colors scale-95 active:duration-100 p-2 rounded-full">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-border-subtle">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A close up, high quality studio portrait of a professional modern Indian male in his 30s, looking slightly off camera, lit with dramatic rim lighting against a deep dark background. Minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHRzNFCFsGrJu2AAso56Q8lY4Czq1YELtduMrQwuLn71UyT1kHZ0VMEEw-OatethhrpbYaeq7BZjVc_AVWj4AHsdSFjjjTo1MkaQdy_-CTpLCU5B7oScmrYfDGxvyd_BBshcyVhCd4emA7FtiJoGJD7N_fmkNwJXaiSYD9-BAs3_VONV3NP-ur_6eBltSvctkPWYM91stQJmertYsUtxUSrUFP-CFZ4cckpZAmv-NpbGqBDW_feSUD">
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<div class="flex-1 flex max-w-7xl mx-auto w-full px-margin-mobile md:px-margin-desktop py-8 gap-section-gap pb-40">
+<!-- Left Navigation Panel (Desktop Only) -->
+<nav class="hidden md:flex flex-col w-64 border-r border-border-subtle pr-8 gap-2">
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all text-left" onclick="showSection('profile')">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-body-lg text-body-lg">Profile</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all text-left" onclick="showSection('financial')">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-body-lg text-body-lg">Financial Connections</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-surface-container-high border-r-2 border-primary transition-all text-left" onclick="showSection('privacy')">
+<span class="material-symbols-outlined" data-icon="privacy_tip">privacy_tip</span>
+<span class="font-body-lg text-body-lg">Data &amp; Privacy</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all text-left" onclick="showSection('security')">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span class="font-body-lg text-body-lg">Security</span>
+</button>
+</nav>
+<!-- Right Content Area -->
+<main class="flex-1 flex flex-col gap-6 w-full"><div class="flex flex-col gap-6" id="section-privacy"><div class="flex flex-col gap-2"><h2 class="font-headline-lg text-headline-lg text-on-surface">Data &amp; Privacy</h2><p class="text-on-surface-variant font-body-sm text-body-sm">Control how your financial data is stored and accessed.</p></div><div class="flex flex-col gap-4"><div class="bg-surface border border-border-subtle rounded-xl p-6 flex flex-col gap-4"><div class="flex justify-between items-start"><div class="flex flex-col gap-1"><h3 class="font-headline-md text-headline-md text-on-surface">Financial Data</h3><p class="text-on-surface-variant font-body-sm text-body-sm">Manage the transaction and financial information currently stored by Spend Analysis.</p></div></div><div class="bg-surface-container-low p-3 rounded-lg border border-border-subtle"><p class="text-on-surface font-body-sm text-body-sm">Stored transactions | Available for spending analysis</p></div><button class="text-primary font-body-sm text-body-sm flex items-center gap-1 hover:underline w-fit">View transactions <span class="material-symbols-outlined text-[18px]">arrow_forward</span></button></div><div class="bg-surface border border-border-subtle rounded-xl p-6 flex flex-col gap-4"><div class="flex justify-between items-start"><div class="flex flex-col gap-1"><h3 class="font-headline-md text-headline-md text-on-surface">Connected Accounts</h3><p class="text-on-surface-variant font-body-sm text-body-sm">Manage financial accounts connected through Account Aggregator.</p></div></div><div class="bg-surface-container-low p-3 rounded-lg border border-border-subtle"><p class="text-on-surface font-body-sm text-body-sm">HDFC Bank | Savings Account •••• 4589 | Status: Connected</p></div><button class="text-primary font-body-sm text-body-sm flex items-center gap-1 hover:underline w-fit">Manage connection <span class="material-symbols-outlined text-[18px]">arrow_forward</span></button></div><div class="bg-surface border border-border-subtle rounded-xl p-6 flex flex-col gap-4"><div class="flex justify-between items-start"><div class="flex flex-col gap-1"><h3 class="font-headline-md text-headline-md text-on-surface">Consent History</h3><p class="text-on-surface-variant font-body-sm text-body-sm">Review the financial-data access permissions you've granted.</p></div></div><div class="bg-surface-container-low p-3 rounded-lg border border-border-subtle"><p class="text-on-surface font-body-sm text-body-sm">HDFC Bank | Consent: Active | Expires: 01 Sep 2027</p></div><button class="text-primary font-body-sm text-body-sm flex items-center gap-1 hover:underline w-fit">View consent details <span class="material-symbols-outlined text-[18px]">arrow_forward</span></button></div><div class="bg-surface-container-low border border-border-subtle rounded-lg p-4 flex flex-col gap-2"><h4 class="text-on-surface font-label-bold text-label-bold uppercase tracking-wider">How your data is used</h4><p class="text-on-surface-variant font-body-sm text-body-sm">Spend Analysis uses available transaction data to organize your spending, identify spending patterns, compare expenses with your spending plans, and generate analytical insights.</p></div><div class="bg-surface border border-border-subtle rounded-xl p-6 flex flex-col gap-4 mt-4"><h3 class="font-headline-md text-headline-md text-status-error">Delete financial data</h3><p class="text-on-surface-variant font-body-sm text-body-sm">Remove financial data stored by Spend Analysis, including stored transactions and connected-account records.</p><button class="px-6 py-2 bg-error-container hover:bg-error-container/80 text-on-error-container rounded-lg font-body-sm text-body-sm transition-colors flex items-center gap-2 w-fit"><span class="material-symbols-outlined text-[18px]">delete_forever</span>Delete financial data</button><p class="text-text-muted font-body-sm text-body-sm italic">This removes data stored by Spend Analysis only. It does not delete records held by your bank, UPI provider, or Account Aggregator.</p></div></div></div></main>
+</div>
+<!-- Bottom Navigation Shell (Mobile & Desktop per prompt constraints) -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md rounded-full bg-nav-surface border border-border-subtle shadow-lg shadow-black/20 z-50 flex justify-around items-center px-2 py-2">
+<a class="flex flex-col items-center justify-center text-text-muted p-3 hover:scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-bold text-label-bold mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-muted p-3 hover:scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-label-bold text-label-bold mt-1">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-muted p-3 hover:scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-bold text-label-bold mt-1">Transactions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-muted p-3 hover:scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-bold text-label-bold mt-1">Budget</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-on-secondary-fixed text-on-secondary-fixed-variant rounded-full p-3 hover:scale-105 transition-transform shadow-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings" data-weight="fill" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-bold text-label-bold mt-1">Settings</span>
+</a>
+</nav>
+<script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = ['profile', 'financial', 'privacy', 'security'];
+            sections.forEach(id => {
+                const el = document.getElementById('section-' + id);
+                if (el) {
+                    el.classList.add('hidden');
+                    el.classList.remove('flex');
+                }
+            });
+            
+            // Show target section
+            const targetEl = document.getElementById('section-' + sectionId);
+            if (targetEl) {
+                targetEl.classList.remove('hidden');
+                targetEl.classList.add('flex');
+            }
+        }
+    </script>
+
+
+</body></html>
