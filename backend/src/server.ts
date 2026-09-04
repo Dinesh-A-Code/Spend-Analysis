@@ -8,12 +8,25 @@ import { errorHandler } from './middleware/error.middleware.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = Number(process.env.PORT) || 5000;
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+
+// CORS Configuration (Scoped to local dev, configured FRONTEND_URL, and Android Capacitor webview origins)
+const allowedOrigins: (string | RegExp)[] = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://localhost',
+  'https://localhost',
+  'capacitor://localhost'
+];
+
+if (FRONTEND_URL && !allowedOrigins.includes(FRONTEND_URL)) {
+  allowedOrigins.push(FRONTEND_URL);
+}
 
 // Middleware
 app.use(cors({
-  origin: [FRONTEND_URL, 'http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: allowedOrigins,
   credentials: true
 }));
 app.use(express.json());
@@ -63,9 +76,9 @@ app.use(errorHandler);
 
 // Start server
 if (process.env.NODE_ENV !== 'test') {
-  app.listen(PORT, () => {
+  app.listen(PORT, '0.0.0.0', () => {
     const engine = db.isPostgres() ? 'Supabase PostgreSQL' : 'SQLite';
-    console.log(`[Spend Analysis Backend] Running on http://localhost:${PORT}`);
+    console.log(`[Spend Analysis Backend] Running on port ${PORT}`);
     console.log(`[Database] Connected to ${engine}`);
   });
 }
