@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Spend Analysis</string>
+    <string name="title_activity_main">Spend Analysis</string>
+    <string name="package_name">in.spendanalysis.app</string>
+    <string name="custom_url_scheme">in.spendanalysis.app</string>
+</resources>

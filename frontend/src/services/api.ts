@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import type {
   ApiResponse,
   AuthResponse,
@@ -13,7 +14,7 @@ import type {
   MonthlyTrendItem,
 } from '../types/index.js';
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/+$/, '');
 const TOKEN_KEY = 'spend_analysis_token';
 
 class ApiService {

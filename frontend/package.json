@@ -11,12 +11,15 @@
     "test": "node --import tsx/esm --test src/tests/run_frontend_tests.ts"
   },
   "dependencies": {
+    "@capacitor/core": "^8.5.1",
     "lucide-react": "^0.475.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.2"
   },
   "devDependencies": {
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/cli": "^8.5.1",
     "@types/node": "^22.13.5",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
