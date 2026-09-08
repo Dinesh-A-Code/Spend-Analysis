@@ -131,7 +131,7 @@ export async function queryAll<T extends pg.QueryResultRow = any>(text: string, 
  */
 export async function initDatabase(): Promise<void> {
   if (pool) {
-    // In PostgreSQL / Supabase, schema is already created via Step 2B DDL.
+    // In PostgreSQL / Supabase, schema is maintained via DDL migrations.
     return;
   }
 
@@ -159,6 +159,19 @@ export async function initDatabase(): Promise<void> {
     } catch {
       // Schema may already exist
     }
+  }
+
+  // Apply safe non-destructive column migrations for SQLite fallback
+  try {
+    db.exec("ALTER TABLE connected_accounts ADD COLUMN provider_id TEXT NOT NULL DEFAULT 'mock';");
+  } catch {
+    // column already exists
+  }
+
+  try {
+    db.exec("ALTER TABLE transactions ADD COLUMN external_transaction_id TEXT;");
+  } catch {
+    // column already exists
   }
 }
 

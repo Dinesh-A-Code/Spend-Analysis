@@ -1,6 +1,8 @@
 import { type Response } from 'express';
 import { type AuthenticatedRequest } from '../middleware/auth.middleware.js';
 import { AccountService } from '../services/account.service.js';
+import { AAProviderRegistry } from '../services/aa/registry.js';
+import { type AAProviderType } from '../services/aa/types.js';
 
 export class AccountController {
   public static async getAccounts(req: AuthenticatedRequest, res: Response): Promise<void> {
@@ -16,6 +18,55 @@ export class AccountController {
       res.status(500).json({
         success: false,
         error: error instanceof Error ? error.message : 'Failed to retrieve connected accounts.'
+      });
+    }
+  }
+
+  public static async getProviders(_req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      const providers = AAProviderRegistry.listSupportedProviders();
+      res.status(200).json({
+        success: true,
+        data: { providers }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to retrieve supported AA providers.'
+      });
+    }
+  }
+
+  public static async connect(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      const userId = req.user!.userId;
+      const { institution_name, provider } = req.body;
+
+      if (!institution_name || typeof institution_name !== 'string') {
+        res.status(400).json({
+          success: false,
+          error: 'Institution name is required.'
+        });
+        return;
+      }
+
+      const connectedAccount = await AccountService.connectAccount(
+        userId,
+        institution_name,
+        provider as AAProviderType | undefined
+      );
+
+      res.status(201).json({
+        success: true,
+        data: {
+          account: connectedAccount,
+          message: 'Connected account created successfully and authorized financial data synchronized.'
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to connect financial institution.'
       });
     }
   }
@@ -46,6 +97,36 @@ export class AccountController {
       res.status(500).json({
         success: false,
         error: error instanceof Error ? error.message : 'Failed to connect financial institution.'
+      });
+    }
+  }
+
+  public static async syncAccount(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      const userId = req.user!.userId;
+      const accountId = Number(req.params.id);
+
+      if (isNaN(accountId)) {
+        res.status(400).json({
+          success: false,
+          error: 'Valid account ID is required.'
+        });
+        return;
+      }
+
+      const result = await AccountService.syncAccountData(userId, accountId);
+
+      res.status(200).json({
+        success: true,
+        data: {
+          ...result,
+          message: `Account synchronized successfully: ${result.insertedCount} new transaction(s) ingested, ${result.skippedDuplicates} duplicate(s) skipped.`
+        }
+      });
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to synchronize account.'
       });
     }
   }

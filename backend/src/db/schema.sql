@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- 2. Connected Accounts Table (Account Aggregator Simulation & Consent)
+-- 2. Connected Accounts Table (Account Aggregator Integration & Consent Lifecycle)
 CREATE TABLE IF NOT EXISTS connected_accounts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS connected_accounts (
     consent_granted INTEGER CHECK(consent_granted IN (0, 1)) DEFAULT 1,
     consent_id TEXT UNIQUE NOT NULL,
     consent_expiry DATETIME NOT NULL,
+    provider_id TEXT NOT NULL DEFAULT 'mock',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
@@ -44,6 +45,7 @@ CREATE TABLE IF NOT EXISTS transactions (
         'Food', 'Shopping', 'Transport', 'Bills', 'Education', 
         'Entertainment', 'Health', 'Investments', 'Subscriptions', 'Other'
     )) NOT NULL,
+    external_transaction_id TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (account_id) REFERENCES connected_accounts(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE

@@ -1,5 +1,8 @@
 import { db } from '../db/database.js';
 import { type ConnectedAccount, type AccountType } from '../types/index.js';
+import { AAProviderRegistry } from './aa/registry.js';
+import { AAIngestionService } from './aa/ingestion.service.js';
+import { type AAProviderType, type IngestionResult } from './aa/types.js';
 
 export const SUPPORTED_INSTITUTIONS = [
   { name: 'HDFC Bank', maskedNumber: 'XXXX-XXXX-9876', type: 'Savings' as AccountType },
@@ -8,9 +11,12 @@ export const SUPPORTED_INSTITUTIONS = [
 ];
 
 export class AccountService {
+  /**
+   * Retrieves all connected accounts for a given user.
+   */
   public static async getAccounts(userId: number): Promise<ConnectedAccount[]> {
     const accounts = await db.queryAll<ConnectedAccount>(`
-      SELECT id, user_id, institution_name, account_number_masked, account_type, consent_granted, consent_id, consent_expiry, created_at
+      SELECT id, user_id, institution_name, account_number_masked, account_type, consent_granted, consent_id, consent_expiry, provider_id, created_at
       FROM connected_accounts
       WHERE user_id = $1
       ORDER BY id ASC
@@ -19,9 +25,12 @@ export class AccountService {
     return accounts;
   }
 
+  /**
+   * Retrieves a specific connected account by ID for a user.
+   */
   public static async getAccountById(userId: number, accountId: number): Promise<ConnectedAccount | undefined> {
     const account = await db.queryOne<ConnectedAccount>(`
-      SELECT id, user_id, institution_name, account_number_masked, account_type, consent_granted, consent_id, consent_expiry, created_at
+      SELECT id, user_id, institution_name, account_number_masked, account_type, consent_granted, consent_id, consent_expiry, provider_id, created_at
       FROM connected_accounts
       WHERE id = $1 AND user_id = $2
     `, [accountId, userId]);
@@ -29,50 +38,96 @@ export class AccountService {
     return account;
   }
 
-  public static async connectMockAccount(userId: number, institutionName: string): Promise<ConnectedAccount> {
-    const matchedInst = SUPPORTED_INSTITUTIONS.find(
-      inst => inst.name.toLowerCase() === institutionName.trim().toLowerCase()
-    ) || {
-      name: institutionName.trim() || 'HDFC Bank (Mock)',
-      maskedNumber: 'XXXX-XXXX-8899',
-      type: 'Savings' as AccountType
-    };
+  /**
+   * Connects a financial institution account via the Account Aggregator provider architecture.
+   */
+  public static async connectAccount(
+    userId: number,
+    institutionName: string,
+    providerType?: AAProviderType
+  ): Promise<ConnectedAccount> {
+    const provider = AAProviderRegistry.getProvider(providerType);
 
-    const consentId = `CNS-MOCK-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-    const consentExpiry = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().replace('T', ' ').substring(0, 19);
+    // 1. Create Consent Artifact via AA Provider
+    const consent = await provider.createConsent({
+      userId,
+      institutionName
+    });
 
+    // 2. Persist Connected Account with Consent Metadata & Provider Identity
     await db.query(`
-      INSERT INTO connected_accounts (user_id, institution_name, account_number_masked, account_type, consent_granted, consent_id, consent_expiry)
-      VALUES ($1, $2, $3, $4, 1, $5, $6)
+      INSERT INTO connected_accounts (user_id, institution_name, account_number_masked, account_type, consent_granted, consent_id, consent_expiry, provider_id)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     `, [
       userId,
-      `${matchedInst.name} (Mock)`,
-      matchedInst.maskedNumber,
-      matchedInst.type,
-      consentId,
-      consentExpiry
+      consent.institutionName,
+      consent.accountNumberMasked,
+      consent.accountType,
+      consent.consentGranted,
+      consent.consentId,
+      consent.consentExpiry,
+      consent.provider || 'mock'
     ]);
 
     const newAccount = await db.queryOne<ConnectedAccount>(`
-      SELECT id, user_id, institution_name, account_number_masked, account_type, consent_granted, consent_id, consent_expiry, created_at
+      SELECT id, user_id, institution_name, account_number_masked, account_type, consent_granted, consent_id, consent_expiry, provider_id, created_at
       FROM connected_accounts
       WHERE consent_id = $1
-    `, [consentId]);
+    `, [consent.consentId]);
 
     if (!newAccount) {
-      throw new Error('Failed to create connected account.');
+      throw new Error('Failed to create connected account record.');
     }
 
-    // Ingest sandbox transaction records for this connected account
-    await this.ingestSandboxTransactions(userId, newAccount.id);
+    // 3. Initiate Financial Data Session & Fetch Data (Asynchronous AA Contract)
+    const accountMeta = {
+      accountId: newAccount.id,
+      userId,
+      institutionName: newAccount.institution_name,
+      accountNumberMasked: newAccount.account_number_masked
+    };
+
+    const dataSession = await provider.requestFinancialData({
+      consentId: consent.consentId,
+      accountMeta
+    });
+
+    const rawData = await provider.fetchFinancialData({
+      consentId: consent.consentId,
+      sessionId: dataSession.sessionId,
+      accountMeta
+    });
+
+    // 4. Normalize and Ingest Authorized Financial Data with Duplicate Protection
+    const normalizedTxs = provider.normalizeFinancialData(rawData);
+    await AAIngestionService.ingestTransactions(accountMeta, normalizedTxs);
 
     return newAccount;
   }
 
+  /**
+   * Connects a mock sandbox account (maintains 100% backward compatibility).
+   */
+  public static async connectMockAccount(userId: number, institutionName: string): Promise<ConnectedAccount> {
+    return this.connectAccount(userId, institutionName, 'mock');
+  }
+
+  /**
+   * Revokes user consent for an authorized connected account.
+   * Stops future data synchronization while preserving historical financial transactions.
+   */
   public static async revokeConsent(userId: number, accountId: number): Promise<ConnectedAccount> {
     const account = await this.getAccountById(userId, accountId);
     if (!account) {
       throw new Error('Connected account not found.');
+    }
+
+    // Notify the active AA provider of consent revocation
+    try {
+      const provider = AAProviderRegistry.getProvider((account.provider_id as AAProviderType) || 'mock');
+      await provider.revokeConsent(account.consent_id);
+    } catch {
+      // Local revocation proceeds even if upstream notification has temporary network fault
     }
 
     await db.query(`
@@ -85,6 +140,52 @@ export class AccountService {
     return updated!;
   }
 
+  /**
+   * Synchronizes latest financial data for an active connected account with duplicate protection.
+   */
+  public static async syncAccountData(userId: number, accountId: number): Promise<IngestionResult> {
+    const account = await this.getAccountById(userId, accountId);
+    if (!account) {
+      throw new Error('Connected account not found.');
+    }
+
+    if (account.consent_granted !== 1) {
+      throw new Error('Cannot synchronize: Consent for this account has been revoked.');
+    }
+
+    // Check expiry
+    const expiryDate = new Date(account.consent_expiry);
+    if (!isNaN(expiryDate.getTime()) && expiryDate < new Date()) {
+      throw new Error('Cannot synchronize: Consent for this account has expired.');
+    }
+
+    const provider = AAProviderRegistry.getProvider((account.provider_id as AAProviderType) || 'mock');
+    const accountMeta = {
+      accountId: account.id,
+      userId,
+      institutionName: account.institution_name,
+      accountNumberMasked: account.account_number_masked
+    };
+
+    const dataSession = await provider.requestFinancialData({
+      consentId: account.consent_id,
+      accountMeta
+    });
+
+    const rawData = await provider.fetchFinancialData({
+      consentId: account.consent_id,
+      sessionId: dataSession.sessionId,
+      accountMeta
+    });
+
+    const normalizedTxs = provider.normalizeFinancialData(rawData);
+    return AAIngestionService.ingestTransactions(accountMeta, normalizedTxs);
+  }
+
+  /**
+   * Permanently deletes all stored financial records (transactions, accounts, budgets, insights) for a user.
+   * Preserves user identity and authentication credentials.
+   */
   public static async deleteFinancialData(userId: number): Promise<{ success: boolean; deletedCount: { transactions: number; accounts: number } }> {
     const txCountRow = await db.queryOne<{ c: number }>('SELECT COUNT(*) as c FROM transactions WHERE user_id = $1', [userId]);
     const accountCountRow = await db.queryOne<{ c: number }>('SELECT COUNT(*) as c FROM connected_accounts WHERE user_id = $1', [userId]);
@@ -105,62 +206,5 @@ export class AccountService {
         accounts: accountCount
       }
     };
-  }
-
-  private static async ingestSandboxTransactions(userId: number, accountId: number): Promise<void> {
-    const existingTxRow = await db.queryOne<{ c: number }>('SELECT COUNT(*) as c FROM transactions WHERE user_id = $1', [userId]);
-    const existingTxCount = Number(existingTxRow?.c ?? 0);
-
-    if (existingTxCount > 0) {
-      // Sandbox transactions already exist for this user; do not duplicate
-      return;
-    }
-
-    const txs = [
-      // Income
-      [accountId, userId, '2026-08-01', 'Monthly Salary Credit', 45000.00, 'Credit', 'Employer Inc', 'Unknown/Other', 'Other'],
-      // Daily 2026-08-31 (Total: ₹1,240)
-      [accountId, userId, '2026-08-31', 'UPI/Swiggy Delivery', 320.00, 'Debit', 'Swiggy', 'Google Pay', 'Food'],
-      [accountId, userId, '2026-08-31', 'UPI/City Bus Ride', 80.00, 'Debit', 'City Bus', 'Google Pay', 'Transport'],
-      [accountId, userId, '2026-08-31', 'UPI/Tea Shop payment', 20.00, 'Debit', 'Local Tea Shop', 'Google Pay', 'Food'],
-      [accountId, userId, '2026-08-31', 'UPI/Amazon Store', 100.00, 'Debit', 'Amazon', 'Google Pay', 'Shopping'],
-      [accountId, userId, '2026-08-31', 'UPI/Ola Cab fare', 430.00, 'Debit', 'Ola Cabs', 'PhonePe', 'Transport'],
-      [accountId, userId, '2026-08-31', 'UPI/Groceries payment', 290.00, 'Debit', 'Local Grocer', 'Paytm', 'Food'],
-      // Monthly Balancing Transactions (August 2026)
-      [accountId, userId, '2026-08-05', 'Zomato order', 1870.00, 'Debit', 'Zomato', 'Google Pay', 'Food'],
-      [accountId, userId, '2026-08-12', 'Weekly Groceries', 2000.00, 'Debit', 'Star Bazaar', 'PhonePe', 'Food'],
-      [accountId, userId, '2026-08-15', 'Myntra shopping', 1800.00, 'Debit', 'Myntra', 'PhonePe', 'Shopping'],
-      [accountId, userId, '2026-08-20', 'Amazon India apparel', 1300.00, 'Debit', 'Amazon', 'Google Pay', 'Shopping'],
-      [accountId, userId, '2026-08-18', 'Uber trip summary', 1290.00, 'Debit', 'Uber', 'Google Pay', 'Transport'],
-      [accountId, userId, '2026-08-03', 'Movie tickets', 1200.00, 'Debit', 'BookMyShow', 'Paytm', 'Entertainment'],
-      [accountId, userId, '2026-08-02', 'Electricity Bill BESCOM', 2000.00, 'Debit', 'BESCOM', 'Unknown/Other', 'Bills'],
-      // Historical trends (Jan - Apr 2026)
-      [accountId, userId, '2026-01-15', 'Rent & Utility bills', 15000.00, 'Debit', 'Society Admin', 'Unknown/Other', 'Bills'],
-      [accountId, userId, '2026-02-14', 'Tech purchase & medical care', 17500.00, 'Debit', 'Electronics shop', 'PhonePe', 'Shopping'],
-      [accountId, userId, '2026-03-10', 'Investments & Insurance premiums', 14200.00, 'Debit', 'Zerodha', 'Unknown/Other', 'Investments'],
-      [accountId, userId, '2026-04-20', 'Family travel expenses', 19100.00, 'Debit', 'MakeMyTrip', 'Google Pay', 'Transport']
-    ];
-
-    for (const tx of txs) {
-      await db.query(`
-        INSERT INTO transactions (account_id, user_id, transaction_date, description, amount, type, merchant, payment_source, category)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-      `, tx);
-    }
-
-    // Default Budgets if not present
-    const existingBudget = await db.queryOne<{ c: number }>('SELECT COUNT(*) as c FROM budgets WHERE user_id = $1', [userId]);
-    if (Number(existingBudget?.c ?? 0) === 0) {
-      const defaultBudgets = [
-        ['Food', 4000.00],
-        ['Transport', 2000.00],
-        ['Shopping', 2500.00],
-        ['Bills', 2000.00],
-        ['Entertainment', 1500.00]
-      ];
-      for (const [cat, limit] of defaultBudgets) {
-        await db.query('INSERT INTO budgets (user_id, category, limit_amount) VALUES ($1, $2, $3)', [userId, cat, limit]);
-      }
-    }
   }
 }

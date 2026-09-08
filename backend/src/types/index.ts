@@ -49,6 +49,7 @@ export interface ConnectedAccount {
   consent_granted: number;
   consent_id: string;
   consent_expiry: string;
+  provider_id?: string;
   created_at: string;
 }
 
@@ -63,6 +64,7 @@ export interface Transaction {
   merchant: string;
   payment_source: PaymentSource;
   category: Category;
+  external_transaction_id?: string | null;
   created_at: string;
 }
 

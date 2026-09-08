@@ -131,7 +131,7 @@ export class TransactionService {
 
     // Paginated list
     let listQuery = `
-      SELECT id, account_id, user_id, transaction_date, description, amount, type, merchant, payment_source, category, created_at
+      SELECT id, account_id, user_id, transaction_date, description, amount, type, merchant, payment_source, category, external_transaction_id, created_at
       FROM transactions
       WHERE ${whereClause}
       ORDER BY transaction_date DESC, id DESC
@@ -163,7 +163,7 @@ export class TransactionService {
   public static async getTransactionById(userId: number, id: number): Promise<TransactionDetailResponse | undefined> {
     const tx = await db.queryOne<TransactionDetailResponse>(`
       SELECT t.id, t.account_id, t.user_id, t.transaction_date, t.description, t.amount, t.type,
-             t.merchant, t.payment_source, t.category, t.created_at,
+             t.merchant, t.payment_source, t.category, t.external_transaction_id, t.created_at,
              a.institution_name, a.account_number_masked
       FROM transactions t
       LEFT JOIN connected_accounts a ON t.account_id = a.id
@@ -188,6 +188,7 @@ export class TransactionService {
     merchant: string;
     payment_source?: PaymentSource;
     category?: Category;
+    external_transaction_id?: string;
   }): Promise<Transaction> {
     const validPaymentSources: PaymentSource[] = ['Google Pay', 'PhonePe', 'Paytm', 'Unknown/Other'];
     const paymentSource: PaymentSource = (data.payment_source && validPaymentSources.includes(data.payment_source))
@@ -201,8 +202,8 @@ export class TransactionService {
     const type: TransactionType = data.type === 'Credit' ? 'Credit' : 'Debit';
 
     const insertResult = await db.queryOne<{ id: number }>(`
-      INSERT INTO transactions (account_id, user_id, transaction_date, description, amount, type, merchant, payment_source, category)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      INSERT INTO transactions (account_id, user_id, transaction_date, description, amount, type, merchant, payment_source, category, external_transaction_id)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING id
     `, [
       data.account_id,
@@ -213,7 +214,8 @@ export class TransactionService {
       type,
       data.merchant,
       paymentSource,
-      category
+      category,
+      data.external_transaction_id?.trim() || null
     ]);
 
     const createdId = insertResult?.id;
